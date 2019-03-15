@@ -21,6 +21,7 @@ class Post extends Component {
       case 'page':
         apiMethod = wp.pages();
         break;
+      
       default:
         break;
     }
@@ -42,7 +43,6 @@ class Post extends Component {
     return (
       <Layout>
         <Menu menu={headerMenu} />
-        <h1>{post.title.rendered}</h1>
         <div
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{

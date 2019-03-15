@@ -17,6 +17,7 @@ class Menu extends Component {
   state = {
     token: null,
     username: null,
+    canAuthenticate : true
   };
 
   componentDidMount() {
@@ -37,7 +38,9 @@ class Menu extends Component {
         );
       }
       const slug = getSlug(item.url);
-      const actualPage = item.object === 'category' ? 'category' : 'post';
+      const actualPage = item.object === 'category' ? 'category' : 
+                          item.object === 'location_category' ? 'location_category' :
+                          'post';
       return (
         <Link
           as={`/${item.object}/${slug}`}
@@ -56,22 +59,22 @@ class Menu extends Component {
         </Link>
         {menuItems}
 
-        {token ? (
-          <button
-            type="button"
-            className="pointer black"
-            onClick={() => {
-              localStorage.removeItem(Config.AUTH_TOKEN);
-              Router.push('/login');
-            }}
-          >
-            Logout {username}
-          </button>
-        ) : (
-          <Link href="/login">
-            <a style={linkStyle}>Login</a>
-          </Link>
-        )}
+          {this.state.canAuthenticate ? token ? (
+            <button
+              type="button"
+              className="pointer black"
+              onClick={() => {
+                localStorage.removeItem(Config.AUTH_TOKEN);
+                Router.push('/login');
+              }}
+            >
+              Logout {username}
+            </button>
+          ) : (
+            <Link href="/login">
+              <a style={linkStyle}>Login</a>
+            </Link>
+          ) : null}
       </div>
     );
   }

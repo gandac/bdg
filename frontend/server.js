@@ -28,6 +28,18 @@ app
       app.render(req, res, actualPage, queryParams);
     });
 
+    server.get('/location_category/:slug', (req, res) => {
+      const actualPage = '/location_category';
+      const queryParams = { slug: req.params.slug };
+      app.render(req, res, actualPage, queryParams);
+    });
+
+    server.get('/location/:slug', (req, res) => {
+      const actualPage = '/location';
+      const queryParams = { slug: req.params.slug };
+      app.render(req, res, actualPage, queryParams);
+    });
+
     server.get('/_preview/:id/:wpnonce', (req, res) => {
       const actualPage = '/preview';
       const queryParams = { id: req.params.id, wpnonce: req.params.wpnonce };

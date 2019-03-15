@@ -6,6 +6,7 @@ if (process.env.HOME === '/home/node') {
 }
 const Config = {
   apiUrl: wpUrl,
+  
   AUTH_TOKEN: 'auth-token',
   USERNAME: 'username',
 };

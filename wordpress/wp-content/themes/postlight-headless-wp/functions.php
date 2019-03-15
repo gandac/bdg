@@ -30,3 +30,6 @@ require_once 'inc/acf-options.php';
 
 // Add GraphQL resolvers.
 require_once 'inc/graphql/resolvers.php';
+
+//WP custom functions
+require_once 'inc/wpfunctions.php';
