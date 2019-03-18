@@ -12,6 +12,7 @@ const Layout = props => {
   return (
     <div style={layoutStyle}>
       <Header />
+      
       {children}
       <Footer />
     </div>

@@ -32,6 +32,12 @@ function get_items() {
 			case 'page':
 				$resolve[ $counter ]['url'] = '/page/' . $slug;
 				break;
+			case 'location':
+				$resolve[ $counter ]['url'] = '/location/' . $slug;
+				break;
+			case 'location_category':
+				$resolve[ $counter ]['url'] = '/location_category/' . $slug;
+				break;
 			case 'custom':
 				$resolve[ $counter ]['url']  = $item->url;
 				$resolve[ $counter ]['type'] = 'external';

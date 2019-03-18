@@ -1,7 +1,7 @@
 {
   "name": "headless-wp-starter",
   "version": "2.0.0",
-  "repository": "git@github.com:postlight/headless-wp-starter.git",
+  "repository": "git@bitbucket.org:laurentiu-nastase/bucharest-design-guide-react.git",
   "author": "Postlight",
   "license": "GPL 2.0",
   "private": true,
