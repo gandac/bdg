@@ -1,122 +1,91 @@
 import React, { Component } from 'react';
 import { withApollo } from 'react-apollo';
-import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as actions from '../store/actions';
 
-/**
- * GraphQL category query that takes a category slug as a filter
- * Returns the posts belonging to the category and the category name and ID
- */
-const CATEGORY_QUERY = gql`
-query CategoryQuery($filter: String!) {
-  location( where: {
-      taxQuery: {
-        relation: OR,
-        taxArray: [
-          {
-            terms: [$filter],
-            taxonomy: LOCATION_CATEGORY,
-            operator: IN,
-            field: SLUG
-          },
-          {
-            terms: ["uncategorized"],
-            taxonomy: CATEGORY,
-            operator: IN,
-            field: SLUG
-          }
-        ]
-      }} ){
-    edges {
-      node {
-        title
-        slug
-      }
-    }
-  }
-  location_categories(where: { slug: [$filter] }){
-    edges{
-      node{
-        name
-        slug
-        termTaxonomyId
-      	location_categoryId
-        
-      }
-    }
-  }
-}
-
-
-`;
 
 /**
  * Fetch and display a Category
  */
 class LocationCategory extends Component {
   state = {
-    category: {
-      name: '',
-      posts: [],
-    },
+    // category: {
+    //   name: '',
+    //   posts: [],
+    // },
   };
 
   componentDidMount() {
-    this.executeCategoryQuery(false);
+    this.props.onCategoryQuery(this.props.client , this.props.match.params.slug);
   }
-  componentWillReceiveProps(nextProps) {
-   this.executeCategoryQuery(nextProps);
+  componentWillUnmount(){
+   // alert('unmount');
+   this.props.startCategoryQuery();
+  }
+  
+  componentWillUpdate(nextProps) {
+    if ( nextProps.match.params.slug !== this.props.match.params.slug){
+      //this.props.onCategoryQuery(nextProps.client , nextProps.match.params.slug );
+      //this.props.onCategoryQuery(nextProps.client , nextProps.match.params.slug );
+      this.props.startCategoryQuery();
+    }
+ }
+ componentDidUpdate(prevProps){
+  if ( prevProps.match.params.slug !== this.props.match.params.slug){
+    this.props.onCategoryQuery(this.props.client , this.props.match.params.slug );
+  }
  }
 
   /**
    * Execute the category query, parse the result and set the state
    */
-  executeCategoryQuery = async (nextProps) => {
-    const { match, client } = nextProps ? nextProps : this.props;
-    
-    const filter = match.params.slug;
-    const result = await client.query({
-      query: CATEGORY_QUERY,
-      variables: { filter },
-    });
-    const { name } = result.data.location_categories.edges[0].node;
-    let posts = result.data.location.edges;
-    posts = posts.map(post => {
-      const finalLink = `/location/${post.node.slug}`;
-      const modifiedPost = { ...post };
-      modifiedPost.node.link = finalLink;
-      return modifiedPost;
-    });
 
-    const category = {
-      name,
-      posts,
-    };
-    this.setState({ category });
-  };
 
   render() {
-    const { category } = this.state;
-    return (
-      <div className="pa2">
-        <h1>{category.name}</h1>
-        <div className="flex mt2 items-start">
-          <div className="flex items-center" />
-          <div className="ml1">
-            {category.posts.map((post, index) => (
-              <div key={post.node.slug}>
-                <span className="gray">{index + 1}.</span>
-                <Link to={post.node.link} className="ml1 black">
-                  {post.node.title}
-                </Link>
+    let theReturn = null;
+    if ( this.props.category ){
+    const category  = this.props.category;
+     theReturn = (
+          <div className="pa2">
+            <h1>{category.name}</h1>
+            <div className="flex mt2 items-start">
+              <div className="flex items-center" />
+              <div className="ml1">
+                {category.posts.map((post, index) => (
+                  <div key={post.node.slug}>
+                    <span className="gray">{index + 1}.</span>
+                    <Link to={post.node.link} className="ml1 black">
+                      {post.node.title}
+                    </Link>
+                  </div>
+                ))}
+                <div className="f6 lh-copy gray" />
               </div>
-            ))}
-            <div className="f6 lh-copy gray" />
+            </div>
           </div>
-        </div>
-      </div>
-    );
+        );
+    }
+    
+    return (<div>{theReturn}</div>);
   }
 }
-
-export default withApollo(LocationCategory);
+const mapStateToProps = state => {
+  return {
+    //  category: {
+    //   name: '',
+    //   posts: [],
+    // },
+    category: {
+      name: state.category.name,
+      posts: state.category.posts,
+    }
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    onCategoryQuery: (client , slug) => dispatch(actions.executeCategoryQuery(client , slug)),
+    startCategoryQuery : () => dispatch(actions.startCategoryQuery()),
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withApollo(LocationCategory));
