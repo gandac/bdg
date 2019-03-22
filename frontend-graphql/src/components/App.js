@@ -11,6 +11,7 @@ import Post from './Post';
 import Category from './Category';
 import Location from './Location';
 import LocationCategory from './LocationCategory';
+import MapContainer from './Map/MapContainer';
 
 export default () => (
   <div className="center">
@@ -26,7 +27,12 @@ export default () => (
         <Route exact path="/location_category/:slug" component={LocationCategory} />
         <Route exact path="/category/:slug" component={Category} />
       </Switch>
+
     </div>
+    <div>
+      <MapContainer />
+    </div>
+    
     <Footer />
   </div>
 );

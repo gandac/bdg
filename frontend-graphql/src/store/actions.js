@@ -7,19 +7,22 @@ export const startCategoryQuery = () => {
     }
 }
 export const modifyStateCategoryQuery = (result) => {
-    const { name } = result.data.location_categories.edges[0].node;
+    const mainCategory = result.data.location_categories.edges[0].node;
     let posts = result.data.location.edges;
+    // assoc_categories = result.data.location.edges.reduce(cat => {
 
+    // });
     posts = posts.map(post => {
         const finalLink = `/location/${post.node.slug}`;
         const modifiedPost = { ...post };
         modifiedPost.node.link = finalLink;
+
         return modifiedPost;
     });
 
     return {
         type: actionTypes.SET_CATEGORY,
-        name: name,
+        ...mainCategory,
         posts: posts
     }
 
@@ -54,6 +57,40 @@ query CategoryQuery($filter: String!) {
       node {
         title
         slug
+        lat
+        lng
+        id
+        featuredImage{
+          sourceUrl
+          mediaDetails {
+            sizes {
+              file
+              height
+              mimeType
+              name
+              sourceUrl
+              width
+            } 
+          }
+        }
+        location_categories {
+          edges {
+            node {
+              location_categoryId
+              name
+              link
+              children {
+                edges {
+                  node {
+                    name
+                    link
+                    termTaxonomyId
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -64,7 +101,15 @@ query CategoryQuery($filter: String!) {
         slug
         termTaxonomyId
       	location_categoryId
-        
+        children {
+          edges {
+            node {
+              name
+              link
+              termTaxonomyId
+            }
+          }
+        }
       }
     }
   }

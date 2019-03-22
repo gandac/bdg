@@ -78,3 +78,30 @@ function wp1482371_custom_taxonomy_args( $args, $taxonomy ) {
     return $args;
 }
 add_filter( 'register_taxonomy_args', 'wp1482371_custom_taxonomy_args', 20, 2 );
+
+
+
+add_filter( 'graphql_locations_fields', 'register_location_fields'  , 20 ,2 );
+
+function register_location_fields( $fields ) {
+
+    $fields['lat'] = [
+        'type' => WPGraphQL\Types::string(),
+        'description' => __( 'The coordinates of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Post $post, array $args, $context, $info ) {
+            $latlng = get_field('coordinates',$post->ID);
+            return ( ! empty( $latlng ) && is_string( $latlng['lat'] ) ) ? $latlng['lat'] : null;
+        },
+    ];
+    $fields['lng'] = [
+        'type' => WPGraphQL\Types::string(),
+        'description' => __( 'The coordinates of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Post $post, array $args, $context, $info ) {
+            $latlng = get_field('coordinates',$post->ID);
+            return ( ! empty( $latlng ) && is_string( $latlng['lng'] ) ) ? $latlng['lng'] : null;
+        },
+    ];
+
+    return $fields;
+
+}

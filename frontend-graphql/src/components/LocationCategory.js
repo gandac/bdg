@@ -3,7 +3,7 @@ import { withApollo } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actions from '../store/actions';
-
+import PostBox from './ui/PostBox';
 
 /**
  * Fetch and display a Category
@@ -46,20 +46,16 @@ class LocationCategory extends Component {
     let theReturn = null;
     if ( this.props.category ){
     const category  = this.props.category;
+    const posts  = category.posts.map((post, index) => (
+        <PostBox post={post} index={index} key={index}></PostBox>
+      ))
      theReturn = (
           <div className="pa2">
             <h1>{category.name}</h1>
             <div className="flex mt2 items-start">
               <div className="flex items-center" />
               <div className="ml1">
-                {category.posts.map((post, index) => (
-                  <div key={post.node.slug}>
-                    <span className="gray">{index + 1}.</span>
-                    <Link to={post.node.link} className="ml1 black">
-                      {post.node.title}
-                    </Link>
-                  </div>
-                ))}
+                {posts}
                 <div className="f6 lh-copy gray" />
               </div>
             </div>

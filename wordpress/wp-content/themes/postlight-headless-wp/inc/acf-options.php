@@ -18,3 +18,6 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 		]
 	);
 }
+
+
+//and register them 

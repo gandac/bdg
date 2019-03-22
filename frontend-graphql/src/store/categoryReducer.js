@@ -9,7 +9,7 @@ import * as actionTypes from './actionTypes';
     switch(action.type){
         case actionTypes.SET_CATEGORY:
             const category = {
-                name: action.name,
+                ...action,
                 posts: [...action.posts ]
             }
             return {
