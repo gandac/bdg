@@ -5,7 +5,7 @@
     text-align:center;
     overflow: visible!important;
     box-sizing:border-box;
-    position: relative;
+    
     z-index:-1!important;
 }
 .locationPinImage{
@@ -30,7 +30,7 @@
     padding-bottom:15px;
     max-width: 80px;
     box-sizing: border-box;
-    z-index: 0;
+   /* z-index: -1!important; */
     font-size:11px;
     font-family: Chivo , inherit;
     position: absolute;

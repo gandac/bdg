@@ -28,27 +28,56 @@ export const modifyStateCategoryQuery = (result) => {
 
 }
 
-export const executeCategoryQuery = (client , slug) =>{
+export const executeCategoryQuery = (client , parent , slug = false) =>{
+  console.log("slug filtru",parent);
+  let childrenSlug = false;
+  let filter = parent;
+  let catFilter = parent;
+ if(slug){
+  // console.log(parent);
+  filter = slug
+ }
     /**
  * GraphQL category query that takes a category slug as a filter
  * Returns the posts belonging to the category and the category name and ID
  */
 const CATEGORY_QUERY = gql`
-query CategoryQuery($filter: String!) {
+query CategoryQuery($filter: String , $catFilter: String!) {
+
+    location_categories(where: { slug: [$catFilter] , shouldOnlyIncludeConnectedItems: false , shouldOutputInFlatList: false}){
+    edges{
+      node{
+        name
+        slug
+        termTaxonomyId
+      	location_categoryId
+        children (where: {  shouldOnlyIncludeConnectedItems: false , shouldOutputInFlatList: false} ){
+          edges {
+            node {
+              name
+              link
+              slug
+              termTaxonomyId
+            }
+          }
+        }
+      }
+    }
+  }
+
   location( where: {
       taxQuery: {
-        relation: OR,
+        relation: AND,
         taxArray: [
           {
             terms: [$filter],
             taxonomy: LOCATION_CATEGORY,
             operator: IN,
             field: SLUG
-          },
-          {
+          },{
             terms: ["uncategorized"],
             taxonomy: CATEGORY,
-            operator: IN,
+            operator: NOT_IN,
             field: SLUG
           }
         ]
@@ -84,6 +113,7 @@ query CategoryQuery($filter: String!) {
                   node {
                     name
                     link
+                    slug
                     termTaxonomyId
                   }
                 }
@@ -94,36 +124,20 @@ query CategoryQuery($filter: String!) {
       }
     }
   }
-  location_categories(where: { slug: [$filter] }){
-    edges{
-      node{
-        name
-        slug
-        termTaxonomyId
-      	location_categoryId
-        children {
-          edges {
-            node {
-              name
-              link
-              termTaxonomyId
-            }
-          }
-        }
-      }
-    }
-  }
+
 }
 
 
 `;    
-    const filter = slug;
+
+//console.log(CATEGORY_QUERY);
+
 
     return async dispatch => {
         try{
         const result = await client.query({
             query: CATEGORY_QUERY,
-            variables: { filter },
+            variables: { filter: filter , catFilter: catFilter},
         });
         return dispatch(modifyStateCategoryQuery(result));
         }catch(err){

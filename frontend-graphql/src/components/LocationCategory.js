@@ -2,38 +2,41 @@ import React, { Component } from 'react';
 import { withApollo } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
+
 import * as actions from '../store/actions';
 import PostBox from './ui/PostBox';
-
+import CategoryMenu from './ui/categoryMenu';
 /**
  * Fetch and display a Category
  */
 class LocationCategory extends Component {
-  state = {
-    // category: {
-    //   name: '',
-    //   posts: [],
-    // },
-  };
 
   componentDidMount() {
-    this.props.onCategoryQuery(this.props.client , this.props.match.params.slug);
+    this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug);
   }
   componentWillUnmount(){
    // alert('unmount');
    this.props.startCategoryQuery();
   }
-  
+  // shouldComponentUpdate(prevProps){
+    
+  //   if ( prevProps.match.params.parent !== this.props.match.params.parent ){
+  //     return true;
+  //   }
+  //     return true;
+  // }
   componentWillUpdate(nextProps) {
-    if ( nextProps.match.params.slug !== this.props.match.params.slug){
+    if ( nextProps.match.params.parent !== this.props.match.params.parent  ){
       //this.props.onCategoryQuery(nextProps.client , nextProps.match.params.slug );
       //this.props.onCategoryQuery(nextProps.client , nextProps.match.params.slug );
       this.props.startCategoryQuery();
     }
  }
+ 
  componentDidUpdate(prevProps){
-  if ( prevProps.match.params.slug !== this.props.match.params.slug){
-    this.props.onCategoryQuery(this.props.client , this.props.match.params.slug );
+  if ( prevProps.match.params.parent !== this.props.match.params.parent || this.props.match.params.slug !== prevProps.match.params.slug){
+    this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug);
+    
   }
  }
 
@@ -43,27 +46,32 @@ class LocationCategory extends Component {
 
 
   render() {
-    let theReturn = null;
+ 
+    let category = null,
+      children = null,
+      posts = null;
     if ( this.props.category ){
-    const category  = this.props.category;
-    const posts  = category.posts.map((post, index) => (
+      category  = this.props.category;
+      children = this.props.children;
+      posts  = category.posts.map((post, index) => (
         <PostBox post={post} index={index} key={index}></PostBox>
-      ))
-     theReturn = (
-          <div className="pa2">
-            <h1>{category.name}</h1>
-            <div className="flex mt2 items-start">
-              <div className="flex items-center" />
-              <div className="ml1">
-                {posts}
-                <div className="f6 lh-copy gray" />
-              </div>
-            </div>
-          </div>
-        );
-    }
-    
-    return (<div>{theReturn}</div>);
+      ));
+     
+      }
+
+      
+      return (<div><div className="pa2">
+      <h1>{category ? category.name : null }</h1>
+      <div className="flex mt2 items-start">
+        <div className="flex items-center" />
+        <div className="ml1">
+          {posts ? posts : null}
+          { children ? (<CategoryMenu categories={children.edges} parent={category} match={this.props.match}>The Categories</CategoryMenu>) : null}
+          <div className="f6 lh-copy gray" />
+        </div>
+      </div>
+    </div></div>);
+   
   }
 }
 const mapStateToProps = state => {
@@ -74,13 +82,17 @@ const mapStateToProps = state => {
     // },
     category: {
       name: state.category.name,
+      id: state.category.id,
+      slug: state.category.slug,
       posts: state.category.posts,
-    }
+
+    },
+    children: state.category.children
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onCategoryQuery: (client , slug) => dispatch(actions.executeCategoryQuery(client , slug)),
+    onCategoryQuery: (client , slug , parent) => dispatch(actions.executeCategoryQuery(client , slug , parent)),
     startCategoryQuery : () => dispatch(actions.startCategoryQuery()),
   }
 }
