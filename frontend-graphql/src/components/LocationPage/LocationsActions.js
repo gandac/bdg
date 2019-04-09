@@ -1,8 +1,17 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from '../../store/actionTypes';
 import gql from 'graphql-tag';
 
 
 
+export const modifyStateLocationQuery = (post) => {
+
+
+  return {
+      type: actionTypes.SET_LOCATION,
+      location: post,
+  }
+
+}
 export const executeLocationQuery = (client , slug) =>{
 
 const LOCATION_QUERY = gql `

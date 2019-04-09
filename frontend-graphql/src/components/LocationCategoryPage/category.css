@@ -1,0 +1,87 @@
+.pageBottomWrapper{
+    background-color: rgb(198, 205, 247);
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: calc( 100% - 12em );
+    top: 12em;
+    z-index: 2;
+}
+.locationCategoryPageWrapper{
+    position:relative;
+}
+.pageTopWrapper{
+    position: relative;
+    z-index: 3;
+    min-height: calc( 100vh - 4em );
+    display: flex;
+    flex-direction: row;
+}
+.pageTopWrapper .constraint{
+    flex:1;   
+}
+.locationCategoryPageWrapper .leftSide{
+    width:75%;
+    display:block;
+    float:left;
+}
+.locationCategoryPageWrapper .rightSide{
+    width:25%;
+    display:block;
+    float:right;
+    position:absolute;
+    right:0;
+    top:13em;
+    height: calc( 100% - 13em );
+}
+.MapTriggerWrapper{
+    position: absolute;
+    bottom:2em;
+    right:2em;
+}
+.MapTriggerWrapper .MapTriggerImage{
+    display: inline-block;
+    width: 95px;
+    cursor: pointer;
+    
+}
+.locationBoxWrapper{
+    width:50%;
+    float:left;
+    box-sizing: border-box;
+    padding-right: 3em;
+    padding-bottom: 3em;
+    padding-top:3em;
+    color:inherit;
+}
+.locationBox{
+    color:inherit;
+    text-decoration: none;
+}
+.locationBox , .locationBox:active , .locationBox:visited {
+    color:inherit;
+}
+.locationBox .locationBoxTitle{
+    font-weight: 600;
+    font-size:18px;
+    display:inline-block;
+    text-decoration: none;
+    color:inherit;
+}
+.locationsGrid{
+    clear:both;
+    overflow: auto;
+}
+.categoryMenuWrapper a{
+    display:block;
+    padding:0.4em 0;
+    color: inherit;
+}
+.locationBoxCategory{
+    display:inline-block;
+    vertical-align: middle;
+    padding-left:1em;
+}
+.categoryLink.active{
+    font-weight:600;
+}

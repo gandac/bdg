@@ -5,8 +5,8 @@
         {
             "key": "field_5c9957e4a4c58",
             "label": "The Color",
-            "name": "the_color",
-            "type": "color_picker",
+            "name": "thecolor",
+            "type": "select",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -15,8 +15,24 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "graphql_label": "theColorField"
+            "choices": {
+                "colorset1": "Color Theme 1",
+                "colorset2": "Color Theme 2",
+                "colorset3": "Color Theme 3",
+                "colorset4": "Color Theme 4",
+                "colorset5": "Color Theme 5",
+                "colorset6": "Color Theme 6",
+                "colorset7": "Color Theme 7",
+                "colorset8": "Color Theme 8"
+            },
+            "default_value": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": "",
+            "graphql_label": "thecolorField"
         }
     ],
     "location": [
@@ -36,5 +52,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1553554201
+    "modified": 1553706648
 }

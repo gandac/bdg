@@ -1,21 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 //import { compose } from 'recompose';
 
-
+//  accepts parent = parent category object
+// category = current category objcet
 
 const categoryMenu = (props) => {
     
     const categories = props.categories.map( category => {
         // $catElement = category.node;
-        return (<Link key={category.node.name} to={'/location_category/' + props.parent.slug + '/' + category.node.slug} className="ml1 no-underline black categoryLink">
+        return (<NavLink exact key={category.node.name} to={'/location_category/' + props.parent.slug + '/' + category.node.slug} className="no-underline categoryLink">
         {category.node.name}
-      </Link>);
+      </NavLink>);
     });
 
     return (
-    <div className="categoryItem">
+    <div className="categoryMenuWrapper">
         {props.children ? props.children : null}
+        <div className="mainCategoryAction">
+            <NavLink exact to={'/location_category/' + props.parent.slug } className="categoryLink" >Show all</NavLink>
+        </div>
         <div>{categories}</div>
     </div>
     );

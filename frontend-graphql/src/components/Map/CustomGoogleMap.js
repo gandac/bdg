@@ -173,38 +173,48 @@ const styleType = [
 class CustomGoogleMap extends Component {
 
   state = {
+    mapCenter: {
+      lat: 44.4160439,
+      lng: 26.0964823
+    },
+    zoom : 13 ,
     activeMarker: {
       id: false,
       labelHovered: true
-    }
-  }
-
-  onMarkerHover = (event , markerId) => {
-
-  // undefined relatedTarget means the user hovered just the location pin and not the BubbleBox
-  if ( !event.relatedTarget ){ 
-    clearTimeout(eventTimeout);
-    const theClassThis = this;
-    let eventTimeout = setTimeout(function(){
-        theClassThis.setState({activeMarker: {id: markerId }});
-      },  100);
-    }
-    console.log("Pin Over");
-    return;
-  }
-  
-  
-  onMarkerOut = (event) => {
-    
-    clearTimeout(eventTimeout);
-    //   console.log(event);
-    const theClassThis = this;
-    let eventTimeout = setTimeout(function(){
+    },
+    mapMoving: false,
+  };
+  componentWillReceiveProps(nextProps){
+    const google = window.google;
+    const lastMarker = nextProps.markers.length  ? nextProps.markers[nextProps.markers.length - 1]:null;
+    if(lastMarker){
       
-      theClassThis.setState({activeMarker: {id: false , labelHovered: false}});
-    },  200);
-    console.log("Pin Out");
+      if(nextProps.markers != this.props.markers){
+      //  let laLatLng = new google.maps.LatLng( lastMarker.position.lat , lastMarker.position.lng);
+      if( lastMarker.position.lat && lastMarker.position.lng ){
+        this.setState({
+          ...this.state,
+          zoom: 14 , 
+          mapCenter: {lat: lastMarker.position.lat , lng: lastMarker.position.lng},
+          mapMoving: true
+         });
+        }
+    }
+  }
+}
+  
+  onMarkerHover = (event , markerId) => {
+    // undefined relatedTarget means the user hovered just the location pin and not the BubbleBox
+    if ( !event.relatedTarget ){ 
+      this.setState({...this.state , mapMoving: false, activeMarker: {id: markerId }});
       return;
+    }
+  }
+  
+  
+  onMarkerOut = () => {
+    this.setState({...this.state , mapMoving:false , activeMarker: {id: false , labelHovered: false}});
+    return;
   }
 
   onMarkerClick = (url) => {
@@ -213,12 +223,31 @@ class CustomGoogleMap extends Component {
   }
 
   render(){ 
+    const initialCenter = {
+      ...this.state.mapCenter
+    }
     return (
         <GoogleMap
             defaultZoom={14}  
-            zoom={14}  
+            zoom={this.state.zoom}  
+            defaultOptions={{
+             // styles: mapStyle,
+             // these following 7 options turn certain controls off see link below
+              streetViewControl: false,
+              scaleControl: false,
+              mapTypeControl: false,
+              panControl: false,
+              zoomControl: false,
+              rotateControl: false,
+              fullscreenControl: false
+            }}
+            
             options={{styles:styleType}}
-            center={this.props.center}
+            ref={(map) => map && 
+                          this.state.mapMoving &&
+                           map.panTo(this.state.mapCenter.lat ? this.state.mapCenter : initialCenter )}
+          // defaultCenter={initialCenter}
+            center={this.state.mapCenter}
             
         >
         <span>

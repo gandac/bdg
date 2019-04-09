@@ -1,29 +1,26 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from '../../store/actionTypes';
 
  const initialState = {
-    name: '',
-    posts: [],
+    headerMenu: [],
+    footerMenu: [],
+    staticInfo: false,
     loading: false
- }
+  };
  const reducer = (state = initialState, action) => {
     switch(action.type){
-        case actionTypes.SET_CATEGORY:
-            const category = {
-                ...action,
-                posts: [...action.posts ]
-            }
+        case actionTypes.SET_MENU:
             return {
                 ...state,
-                ...category,
+                ...action.menus,
+                siteSettings : action.siteSettings,
                 loading: false
             }
-        case actionTypes.FETCH_CATEGORY_START:
+        case actionTypes.START_MENU_QUERY:
             return{
                 ...state,
                 ...initialState,
                 loading:true
             }
-       
         default:
             return state;
     }

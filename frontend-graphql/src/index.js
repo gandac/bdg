@@ -14,13 +14,20 @@ import thunk from 'redux-thunk';
 import App from './components/App';
 import Config from './config';
 
-import categoryReducer from './store/categoryReducer';
-import locationReducer from './store/locationReducer';
-
+import categoryReducer from './components/LocationCategoryPage/categoryReducer';
+import locationReducer from './components/LocationPage/locationReducer';
+import menusReducer from './components/Header/menusReducer';
+import mapReducer from './components/Map/mapReducer';
+import locationsReducer from './components/LocationsLoop/locationsReducer';
+import searchReducer from './components/Search/searchReducer';
 
 const rootReducer = combineReducers({
   category : categoryReducer,
   location : locationReducer,
+  menus: menusReducer,
+  map: mapReducer,
+  locations: locationsReducer,
+  search: searchReducer,
   // page: pageReducer
 });
 

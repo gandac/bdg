@@ -29,8 +29,6 @@ class Category extends Component {
 
   render() {
     const { headerMenu , thisCategory , categoryPosts } = this.props;
-    console.log(thisCategory);
-    console.log(categoryPosts);
 
     const fposts = categoryPosts.map(post => {
       return (

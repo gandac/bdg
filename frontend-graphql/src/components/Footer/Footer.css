@@ -1,0 +1,44 @@
+.Footer{
+    padding-top:1em;
+}
+.Footer .footerLogos{
+    vertical-align: top;
+    display: inline-block;
+    width: 7.4%;
+    margin: 0;
+    box-sizing: border-box;
+    padding-right: 1.5em;
+}
+.Footer .footerDisclaimer , .Footer .footerFormWrapper{
+    vertical-align: top;
+    display:inline-block;
+    width:42%;
+    margin:0;
+}
+.Footer .footerDisclaimer{
+    padding-right:3em;
+}
+.Footer .footerDisclaimer p{
+    margin-top:0;
+}
+.Footer .iconFooter{
+    max-width:1.3em;
+    width:24px;
+    display:inline-block;
+    vertical-align: middle;
+    margin-right:0.5em;
+}
+.inputSubscribe{
+    padding: 1em;
+    background: transparent;
+    border: solid 1px;
+    border-top: 0;
+    border-right: 0;
+    color: inherit;
+    min-width: 16em;
+    width: 54%;
+    outline: none;
+}
+.bottomNav li{
+    padding-bottom:1em;
+}

@@ -6,7 +6,8 @@
  *
  * @package  Postlight_Headless_WP
  */
-
+//BDG settings page
+require_once 'inc/setting-page.php';
 // Frontend origin.
 require_once 'inc/frontend-origin.php';
 
@@ -33,6 +34,8 @@ require_once 'inc/graphql/resolvers.php';
 
 //WP custom functions
 require_once 'inc/wpfunctions.php';
+
+
 
 //echo "hereee: ";
 
@@ -101,7 +104,27 @@ function register_location_fields( $fields ) {
             return ( ! empty( $latlng ) && is_string( $latlng['lng'] ) ) ? $latlng['lng'] : null;
         },
     ];
+    
+    return $fields;
+
+}
+
+add_filter( 'graphql_location_category_fields', 'register_location_category_fields'  , 20 ,2 );
+
+function register_location_category_fields( $fields ) {
+
+    $fields['thecolor'] = [
+        'type' => WPGraphQL\Types::string(),
+        'description' => __( 'color of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Term $term, array $args, $context, $info ) {
+            $thecolor = get_field('thecolor',$term);
+        
+            return ! empty( $term->term_id ) ? strval($thecolor): null;},
+    ];
+
+   // print_r($fields);
 
     return $fields;
 
 }
+

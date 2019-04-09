@@ -15,10 +15,8 @@ class Location extends Component {
     const { slug, apiRoute } = context.query;
 
     const theLocationPost = await wp.location().slug(slug).embed().then(data=>{
-      console.log('aici' , data);
       return data[0];
     });
-    console.log('ai2ci');
 
     return {theLocationPost};
 
@@ -26,7 +24,6 @@ class Location extends Component {
 
   render() {
     const { theLocationPost, headerMenu } = this.props;
-    console.log(theLocationPost);
     if (!theLocationPost.title) return <Error statusCode={404} />;
 
     return (

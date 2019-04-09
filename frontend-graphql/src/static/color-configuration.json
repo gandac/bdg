@@ -1,0 +1,66 @@
+{
+    "initial" : {
+        "layoutColors":  { 
+            "primary":"#000",
+            "secondary":"#888",
+            "accent":"#000"
+        }
+    },
+    "colorset1": { 
+        "layoutColors":  {
+            "primary":"#7DAAA1",
+            "secondary":"#C1EFE7",
+            "accent":"#C6CDF7"
+        }
+    },
+    "colorset2" : {
+        "layoutColors":  { 
+            "primary":"#BA837D",
+            "secondary":"#FFB4A8",
+            "accent":"#F3E37F"
+        }
+    },
+    "colorset3": {
+        "layoutColors": {
+            "primary":"#768099",
+            "secondary":"#C6CDF7",
+            "accent":"#F3E37F"
+        }
+    },
+    "colorset4": {
+        "layoutColors":  {
+            "primary":"#C1EFE7",
+            "secondary":"#ABCDED",
+            "accent":"#BAAC72"
+        }
+    },
+    "colorset5": {
+        "layoutColors":  {
+            "primary":"#BAAC72",
+            "secondary":"#F4E480",
+            "accent":"#C6CDF7"
+        }
+    },
+    "colorset6": {
+        "layoutColors":  {
+            "primary":"#768099",
+            "secondary":"#7DAAA1",
+            "accent":"#BAAC72"
+        }
+    },
+    
+    "colorset7" : {
+        "layoutColors":  {
+            "primary":"#7DAAA1",
+            "secondary":"#768099",
+            "accent":"#C6CDF7"
+        }
+    },
+    "colorset8": {
+        "layoutColors":  {
+            "primary":"#F4E480",
+            "secondary":"#BAAC72",
+            "accent":"#ABCDED"
+        }
+    }
+} 

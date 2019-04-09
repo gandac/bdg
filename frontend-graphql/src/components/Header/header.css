@@ -1,0 +1,51 @@
+.headerWrapper{
+    font-weight: 300;
+    position: relative;
+    z-index: 333;
+}
+.headerWrapper .topNavWrapper ul li{
+    padding-right:2em;
+}
+.headerWrapper .topNavWrapper ul li a.active{
+    font-size:1.6em;
+}
+.headerWrapper .topNavWrapper ul li a:hover{
+    text-shadow: 0 0 0.1px currentcolor;
+}
+.headerLogoWrapper{
+    float:left;
+}
+.closeMapTrigger{
+    display:inline-block;
+    float: right;
+    cursor: pointer;
+}
+.searchWrapper{
+    clear: both;
+}
+.closeMapTrigger strong{
+    vertical-align: middle;
+    display: inline-block;
+    line-height:0;
+}
+.closeMapTrigger img{
+    width:2em;
+    height:2em;
+    margin:0 1em;
+    vertical-align: middle;
+    display: inline-block;
+}
+.typeToSearch svg{
+    width: 1.4em;
+    display: inline-block;
+    vertical-align: middle;
+}
+.typeToSearch .searchInput{
+    border:0;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left:0.5em;
+    padding-right: 0.2em;
+    font-size:14px;
+    outline: none;
+}
