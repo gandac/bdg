@@ -7,6 +7,7 @@ function withColor(InputComponent) {
     const mapStateToProps = (state) => {
         return {
             theCategoryColor: state.category.thecolor,
+            currentPageType: state.locations.pageType,
         }
     }
     return connect( mapStateToProps) (class extends Component {
@@ -15,12 +16,26 @@ function withColor(InputComponent) {
             currentStyles : colorsJson.initial.layoutColors
         }
         componentDidMount(){
-            this.setState({ currentStyles: this.props.theCategoryColor});
-            // const colors = this.props.colors;
+
+            if( this.props.currentPageType.includes('category') ){
+                if(this.props.theCategoryColor){
+                    this.setState({ currentStyles: colorsJson[this.props.theCategoryColor].layoutColors});
+                }
+            }else if( this.props.currentPageType.includes('homepage')){
+                this.setState({ currentStyles: colorsJson.colorset1.layoutColors});
+            }
+
+
         }
         componentWillUpdate(nextProps) {
-            const nextColor = nextProps.theCategoryColor
-            if( this.props  &&  nextColor !== this.props.theCategoryColor ){
+            const nextColor = nextProps.theCategoryColor;
+            const currentPageType = nextProps.currentPageType;
+            if( currentPageType  &&  currentPageType.includes('homepage') ){
+                if(nextProps.currentPageType != this.props.currentPageType){
+                  this.setState({ currentStyles: colorsJson.colorset1.layoutColors});
+                }
+            }
+            if( this.props  &&    currentPageType.includes('category') && nextColor !== this.props.theCategoryColor ){
              if(colorsJson[nextColor]){
                this.setState({ currentStyles: colorsJson[nextColor].layoutColors});
              }

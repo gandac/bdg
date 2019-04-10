@@ -67,6 +67,7 @@
     display:inline-block;
     text-decoration: none;
     color:inherit;
+    text-decoration: inherit;
 }
 .locationsGrid{
     clear:both;

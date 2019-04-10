@@ -4,6 +4,12 @@ body{
   font-weight: 300;
   font-size:14px;
 }
+a{
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: underline;
+}
 input {
   max-width: 500px;
 }

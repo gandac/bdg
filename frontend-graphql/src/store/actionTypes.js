@@ -14,4 +14,7 @@ export const START_MENU_QUERY = 'START_MENU_QUERY';
 export const SET_MENU = 'SET_MENU';
 
 export const TOGGLE_MAP = 'TOGGLE_MAP';
+
+export const GET_ALL_POSTS = 'GET_ALL_POSTS';
+
 export const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';

@@ -19,7 +19,9 @@ import {setSearchValue} from '../Search/searchActions';
 class LocationCategoryPage extends Component {
 
   componentDidMount() {
+    this.props.startCategoryQuery();
     this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug);
+ 
   }
 
   // shouldComponentUpdate(prevProps){

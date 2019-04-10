@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import '../styles/index.css';
 import Header from './Header/HeaderContainer';
 import Footer from './Footer/Footer';
-import Home from './HomePage';
+import Home from './Homepage/Homepage';
 import Login from './LoginPage';
 import Search from './SearchPage';
 import Page from './Page';

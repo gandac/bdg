@@ -1,6 +1,6 @@
 import * as actionTypes from '../../store/actionTypes';
 import gql from 'graphql-tag';
-import {CATEGORY_QUERY,ALL_CATEGORIES_QUERY} from './queries';
+import {CATEGORY_QUERY} from './queries';
 export const startCategoryQuery = () => {
     return {
         type: actionTypes.FETCH_CATEGORY_START
@@ -38,7 +38,7 @@ export const executeCategoryQuery = (client , parent , slug = false , searchQuer
  }
  const currentQuery = CATEGORY_QUERY;
  if(allCategories === true){
-  currentQuery = ALL_CATEGORIES_QUERY;
+//   currentQuery = ALL_CATEGORIES_QUERY;
  }
 
     /**
@@ -62,5 +62,4 @@ export const executeCategoryQuery = (client , parent , slug = false , searchQuer
     }
 }
 
-
-
+  
