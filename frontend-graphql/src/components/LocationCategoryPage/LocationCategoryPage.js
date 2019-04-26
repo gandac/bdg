@@ -21,7 +21,6 @@ class LocationCategoryPage extends Component {
   componentDidMount() {
     this.props.startCategoryQuery();
     this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug);
- 
   }
 
   // shouldComponentUpdate(prevProps){
@@ -51,6 +50,9 @@ class LocationCategoryPage extends Component {
     //this.setState({...this.state,productLoading: false});
   }
  }
+ componentWillUnmount(){
+    this.props.resetCategory();
+  }
   render() {
     const currentStyles = {
       ...this.props.currentStyles
@@ -109,7 +111,7 @@ const mapDispatchToProps = dispatch => {
     startSubcategoryQuery :() => dispatch(loopActions.startSubcategoryQuery()),
     toggleMapActive : () => dispatch(mapActions.toogleMapActive()),
     resetSearchInput: () => dispatch(setSearchValue('')), 
-    
+    resetCategory : () => dispatch(actions.resetCategory()),
   }
 }
 export default compose(connect(mapStateToProps, mapDispatchToProps) , withApollo, withColor )(LocationCategoryPage);

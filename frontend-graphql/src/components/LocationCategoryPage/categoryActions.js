@@ -1,6 +1,12 @@
 import * as actionTypes from '../../store/actionTypes';
 import gql from 'graphql-tag';
 import {CATEGORY_QUERY} from './queries';
+
+export const resetCategory = () => {
+    return {
+        type: actionTypes.RESET_CATEGORY
+    }
+}
 export const startCategoryQuery = () => {
     return {
         type: actionTypes.FETCH_CATEGORY_START

@@ -16,7 +16,7 @@ function withColor(InputComponent) {
             currentStyles : colorsJson.initial.layoutColors
         }
         componentDidMount(){
-
+            
             if( this.props.currentPageType.includes('category') ){
                 if(this.props.theCategoryColor){
                     this.setState({ currentStyles: colorsJson[this.props.theCategoryColor].layoutColors});
@@ -30,12 +30,15 @@ function withColor(InputComponent) {
         componentWillUpdate(nextProps) {
             const nextColor = nextProps.theCategoryColor;
             const currentPageType = nextProps.currentPageType;
+
             if( currentPageType  &&  currentPageType.includes('homepage') ){
                 if(nextProps.currentPageType != this.props.currentPageType){
-                  this.setState({ currentStyles: colorsJson.colorset1.layoutColors});
+                 this.setState({ currentStyles: colorsJson.colorset1.layoutColors});
                 }
             }
+            console.log('nextProps currentProps',nextColor,this.props.theCategoryColor);
             if( this.props  &&    currentPageType.includes('category') && nextColor !== this.props.theCategoryColor ){
+                console.log('here');
              if(colorsJson[nextColor]){
                this.setState({ currentStyles: colorsJson[nextColor].layoutColors});
              }

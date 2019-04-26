@@ -21,6 +21,11 @@ import * as actionTypes from '../../store/actionTypes';
                 pageType: ['category' , 'subcategory'],
                 loading:true
             }
+        case actionTypes.LOCATIONS_START:
+            return{
+                ...state,
+                loading:true
+            }
         case actionTypes.GET_ALL_LOCATIONS:
             return{
                 ...state,

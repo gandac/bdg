@@ -22,7 +22,10 @@ import * as actionTypes from '../../store/actionTypes';
                 ...state,
                 loading:true
             }
-       
+        case actionTypes.RESET_CATEGORY:
+            return{
+                ...initialState
+            }
         default:
             return state;
     }

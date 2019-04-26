@@ -1,6 +1,11 @@
 import * as actionTypes from '../../store/actionTypes';
 import {ALL_LOCATIONS_QUERY,NEW_LOCATIONS_QUERY} from './queries';
 
+export const locationsStart = () => {
+    return {
+        type: actionTypes.LOCATIONS_START
+    }
+}
 
 export const startSubcategoryQuery = () => {
     return {
