@@ -79,3 +79,12 @@
     display:inline-block;
     vertical-align: middle;
 }
+.newLocationsCarousel h2{
+    display: inline-block;
+    margin-right: 0.3em;
+    vertical-align: middle;
+}
+.newLocationsCarousel > span{
+    display: inline-block;
+    vertical-align: middle;
+}

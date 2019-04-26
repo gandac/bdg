@@ -13,7 +13,7 @@ export const startSubcategoryQuery = () => {
     }
 }
 
-const modifyStateAllPosts = (result , type) => {
+const modifyStateAllPosts = (result , type,pageType) => {
     let posts = result.data.location.edges;
     posts = posts.map(post => {
         const finalLink = `/location/${post.node.slug}`;
@@ -24,6 +24,7 @@ const modifyStateAllPosts = (result , type) => {
     });
     return {
         type: type,
+        pageType: pageType,
         posts: posts
     }
 }
@@ -33,14 +34,15 @@ export const allPostsQuery = (client , searchQuery = '' , allCategories = false 
 
     let theSearchQuery = searchQuery;
     let currentQuery = ALL_LOCATIONS_QUERY;
-     
+     const pageType = theSearchQuery.length > 0 ? ['searchPage'] : ['homepage'];
+    
       return async dispatch => {
           try{
           const result = await client.query({
               query: currentQuery,
               variables: { searchQuery: theSearchQuery},
           });
-            dispatch(modifyStateAllPosts(result,actionTypes.GET_ALL_LOCATIONS));
+            dispatch(modifyStateAllPosts(result,actionTypes.GET_ALL_LOCATIONS,pageType));
             return;
           }catch(err){
              console.log(err);

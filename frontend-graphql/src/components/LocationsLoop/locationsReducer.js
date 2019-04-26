@@ -30,7 +30,8 @@ import * as actionTypes from '../../store/actionTypes';
             return{
                 ...state,
                 posts: [...action.posts],
-                pageType: ['homepage'],
+                pageType: action.pageType,
+                loading: false
             }
         case actionTypes.GET_NEW_LOCATIONS:
             return{

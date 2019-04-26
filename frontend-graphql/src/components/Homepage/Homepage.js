@@ -38,7 +38,9 @@ class Homepage extends Component {
 
       let content = <LocationPageMarkup currentStyles ={currentStyles} />;
       if(this.props.postsLoading){
-        content = <LocationPageMarkup currentStyles ={currentStyles} > <Preloader color={currentStyles} type="page"/>  </LocationPageMarkup>
+        content = <LocationPageMarkup currentStyles ={currentStyles} > 
+          <Preloader color={currentStyles} type="page"/>  
+        </LocationPageMarkup>
       }else{
         
         content = <LocationPageMarkup currentStyles ={currentStyles} >
@@ -49,7 +51,11 @@ class Homepage extends Component {
                           events={this.props.events} 
                          color={currentStyles.primary} 
                           /> : null}   
-                          {this.props.newLocations ? <NewLocationsSlider locations={this.props.newLocations} colors={currentStyles}/> : null}    
+                          {this.props.newLocations ? 
+                            ! this.props.isSearch ? 
+                              <NewLocationsSlider locations={this.props.newLocations} colors={currentStyles}/> : 
+                              <NewLocationsSlider locations={this.props.locations} type='search' searchWord={this.props.searchValue} colors={currentStyles}/>
+                          : null}    
                     </div>
                     <div className="rightSide">
     
@@ -69,6 +75,8 @@ const mapStateToProps = state => {
     postsLoading: state.locations.loading,
     isMapActive: state.map.active,
     events: state.events.items,
+    isSearch: state.locations.pageType == 'searchPage',
+    searchValue: state.search.searchValue,
     locations: state.locations.posts,
     newLocations : state.locations.newPosts
   }
