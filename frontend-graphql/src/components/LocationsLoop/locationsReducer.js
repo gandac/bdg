@@ -3,6 +3,7 @@ import * as actionTypes from '../../store/actionTypes';
  const initialState = {
     posts: [],
     pageType: [],
+    newPosts: [],
     loading: true
  }
  const reducer = (state = initialState, action) => {
@@ -20,11 +21,16 @@ import * as actionTypes from '../../store/actionTypes';
                 pageType: ['category' , 'subcategory'],
                 loading:true
             }
-        case actionTypes.GET_ALL_POSTS:
+        case actionTypes.GET_ALL_LOCATIONS:
             return{
                 ...state,
                 posts: [...action.posts],
                 pageType: ['homepage'],
+            }
+        case actionTypes.GET_NEW_LOCATIONS:
+            return{
+                ...state,
+                newPosts: [...action.posts],
                 loading: false
             }
        

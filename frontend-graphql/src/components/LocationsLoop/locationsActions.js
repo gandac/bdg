@@ -1,5 +1,5 @@
 import * as actionTypes from '../../store/actionTypes';
-import {ALL_LOCATIONS_QUERY} from './queries';
+import {ALL_LOCATIONS_QUERY,NEW_LOCATIONS_QUERY} from './queries';
 
 
 export const startSubcategoryQuery = () => {
@@ -8,7 +8,7 @@ export const startSubcategoryQuery = () => {
     }
 }
 
-const modifyStateAllPosts = (result) => {
+const modifyStateAllPosts = (result , type) => {
     let posts = result.data.location.edges;
     posts = posts.map(post => {
         const finalLink = `/location/${post.node.slug}`;
@@ -18,10 +18,11 @@ const modifyStateAllPosts = (result) => {
         return modifiedPost;
     });
     return {
-        type: actionTypes.GET_ALL_POSTS,
+        type: type,
         posts: posts
     }
 }
+
 
 export const allPostsQuery = (client , searchQuery = '' , allCategories = false ) =>{
 
@@ -34,7 +35,7 @@ export const allPostsQuery = (client , searchQuery = '' , allCategories = false 
               query: currentQuery,
               variables: { searchQuery: theSearchQuery},
           });
-            dispatch(modifyStateAllPosts(result));
+            dispatch(modifyStateAllPosts(result,actionTypes.GET_ALL_LOCATIONS));
             return;
           }catch(err){
              console.log(err);
@@ -42,5 +43,22 @@ export const allPostsQuery = (client , searchQuery = '' , allCategories = false 
       }
   }
   
+  export const newLocationsQuery = (client ) =>{
+    const now = new Date();
+    let currentQuery = NEW_LOCATIONS_QUERY;
+     
+      return async dispatch => {
+          try{
+          const result = await client.query({
+              query: currentQuery,
+              variables: { year: now.getFullYear() , month: now.getMonth() + 1 , day: now.getDate()},
+          });
+            dispatch(modifyStateAllPosts(result , actionTypes.GET_NEW_LOCATIONS));
+            return;
+          }catch(err){
+             console.log(err);
+          }
+      }
+  }
   
   

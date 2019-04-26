@@ -6,12 +6,15 @@ import {connect} from 'react-redux';
 import Preloader from '../ui/svg/preloader';
 import * as mapActions from '../Map/mapActions';
 import MapTrigger from  '../ui/mapTrigger';
-import {allPostsQuery} from '../LocationsLoop/locationsActions';
+import {allPostsQuery, startSubcategoryQuery, newLocationsQuery} from '../LocationsLoop/locationsActions';
+import {allEventsQuery} from '../EventsLoop/eventsActions';
 //import CategoryMenu from '../ui/categoryMenu';
 import LocationPageMarkup from '../LocationCategoryPage/locationPageMarkup';
 import colorsJson from '../../static/color-configuration.json';
+import EventsCarousel from '../EventsLoop/eventsCarousel';
 import {setSearchValue} from '../Search/searchActions';
-
+import NewLocationsSlider from './NewLocationsSlider';
+import './homepage.css';
 /**
  * Fetch and display a Category
  */
@@ -19,12 +22,15 @@ class Homepage extends Component {
 
   componentDidMount() {
     //this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug);
-    this.props.onAllPropsQuery(this.props.client )
+    this.props.onAllPropsQuery(this.props.client );
+    this.props.getAllEvents(this.props.client);
+    this.props.getNewLocations(this.props.client);
   } 
   render() {
     const currentStyles = {
       ...colorsJson.colorset1.layoutColors
     }
+
       let content = <LocationPageMarkup currentStyles ={currentStyles} />;
       if(this.props.postsLoading){
         content = <LocationPageMarkup currentStyles ={currentStyles} > <Preloader color={currentStyles} type="page"/>  </LocationPageMarkup>
@@ -33,7 +39,12 @@ class Homepage extends Component {
         content = <LocationPageMarkup currentStyles ={currentStyles} >
                   <div className="constraint clearOverflow">
                     <div className="leftSide">
-
+                        {this.props.events ?  
+                          <EventsCarousel 
+                          events={this.props.events} 
+                         color={currentStyles.primary} 
+                          /> : null}   
+                          {this.props.newLocations ? <NewLocationsSlider locations={this.props.newLocations} colors={currentStyles}/> : null}    
                     </div>
                     <div className="rightSide">
     
@@ -52,13 +63,18 @@ const mapStateToProps = state => {
     loading: state.category.loading,
     postsLoading: state.locations.loading,
     isMapActive: state.map.active,
+    events: state.events.items,
+    locations: state.locations.posts,
+    newLocations : state.locations.newPosts
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
     toggleMapActive : () => dispatch(mapActions.toogleMapActive()),
     resetSearchInput: () => dispatch(setSearchValue('')), 
-    onAllPropsQuery: (client) => dispatch(allPostsQuery(client))
+    onAllPropsQuery: (client) => dispatch(allPostsQuery(client)),
+    getAllEvents: (client) => dispatch(allEventsQuery(client)),
+    getNewLocations : (client) => dispatch(newLocationsQuery(client)),
         
   }
 }

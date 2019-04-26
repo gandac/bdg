@@ -4,6 +4,12 @@ body{
   font-weight: 300;
   font-size:14px;
 }
+h1,h2,h3,h4,h5,h6{
+  font-weight: 400;
+}
+h2{
+  font-size: 1.9em;
+}
 a{
   text-decoration: none;
 }
@@ -24,6 +30,9 @@ div {
 
 .orange {
   background-color: #ff6600;
+}
+.uppercase{
+  text-transform: uppercase;
 }
 
 .login {

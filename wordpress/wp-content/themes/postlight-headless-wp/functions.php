@@ -53,9 +53,23 @@ require_once 'inc/wpfunctions.php';
 //     return $options;
 
 // }
+function dateDifference($date_1 , $date_2 )
+{
+    $datetime1 = date_create($date_1);
+    $datetime2 = date_create($date_2);
 
+    $interval = date_diff($datetime1, $datetime2);
+
+    return $interval->format('%a');
+
+}
 function wp1482371_custom_post_type_args( $args, $post_type ) {
     if ( $post_type == "location" ) {
+        $args['graphql_single_name'] = $args['labels']['name'];
+        $args['graphql_plural_name'] = $args['labels']['singular_name'];
+        $args['show_in_graphql'] = true;
+    }
+    if ( $post_type == "event" ) {
         $args['graphql_single_name'] = $args['labels']['name'];
         $args['graphql_plural_name'] = $args['labels']['singular_name'];
         $args['show_in_graphql'] = true;
@@ -104,6 +118,17 @@ function register_location_fields( $fields ) {
             return ( ! empty( $latlng ) && is_string( $latlng['lng'] ) ) ? $latlng['lng'] : null;
         },
     ];
+
+    $fields['isNew'] = [
+        'type' => WPGraphQL\Types::boolean(),
+        'description' => __( 'The coordinates of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Post $post, array $args, $context, $info ) {
+            $date1 = date('Y-m-d', strtotime(get_the_date('Y-m-d',$post->ID))) ;
+            $current_date1 = date('Y-m-d', time()) ;
+            $days = dateDifference($date1, $current_date1);
+            return ( ! empty( $days ) && $days < 30 )  ? true : false;
+        },
+    ];
     
     return $fields;
 
@@ -127,4 +152,43 @@ function register_location_category_fields( $fields ) {
     return $fields;
 
 }
+
+// EVENTS 
+
+add_filter( 'graphql_events_fields', 'register_event_fields'  , 20 ,2 );
+
+function register_event_fields( $fields ) {
+
+    $fields['location'] = [
+        'type' => WPGraphQL\Types::list_of(WPGraphQL\Types::post_object('location')),
+        'description' => __( 'The coordinates of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Post $post, array $args, $context, $info ) {
+            $eventLocation = get_field('event_location',$post->ID);
+      
+            return ( ! empty( $eventLocation )  ) ? $eventLocation : null;
+        },
+    ];
+    $fields['datetime'] = [
+        'type' => WPGraphQL\Types::string(),
+        'description' => __( 'The coordinates of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Post $post, array $args, $context, $info ) {
+            $eventDate = get_field('event_date',$post->ID);
+            if( !empty($eventDate)){
+                // $eventDate = get_field('event_date',82);
+                // $format_in = 'd/m/Y g:i a';
+                // $date = new DateTime();
+                // $newDate = $date->createFromFormat($format_in, $eventDate);
+                // return $date->format('M j D');
+                return $eventDate;
+            }else{
+                return null;
+            }
+            
+        },
+    ];
+    
+    return $fields;
+
+}
+
 

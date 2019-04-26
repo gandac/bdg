@@ -1,0 +1,70 @@
+{
+    "key": "group_5cadc9bdde1a3",
+    "title": "Events",
+    "fields": [
+        {
+            "key": "field_5cadc9c261c01",
+            "label": "Event Location",
+            "name": "event_location",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "location"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "elements": "",
+            "min": "",
+            "max": "",
+            "return_format": "object",
+            "graphql_label": "eventLocationField"
+        },
+        {
+            "key": "field_5cadca5ac939d",
+            "label": "Event Date",
+            "name": "event_date",
+            "type": "date_time_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "d\/m\/Y g:i a",
+            "return_format": "D, d M Y H:i:s",
+            "first_day": 1,
+            "graphql_label": "eventDateField"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "event"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1554934749
+}

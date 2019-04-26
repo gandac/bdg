@@ -1,0 +1,81 @@
+.iconArrow{
+    max-width: 40px;
+    height:1.5em;
+    margin-left:1em;
+    vertical-align: middle;
+    display: inline-block;
+    cursor: pointer;
+}
+.iconArrow.prevArrow{
+    transform: rotate(180deg);
+    margin-right:1em;
+    margin-left:0.5em;
+}
+.eventsCarousel{
+    margin-top:3.5em;
+    margin-bottom:2.1em;
+}
+.eventBox{
+    position:relative;
+    line-height: 1.3em;
+    width:100%;
+
+}
+.eventBoxDate{
+    display:inline-block;
+    width:20%;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+.eventBoxDescription{
+    display:inline-block;
+    width:78%;
+    vertical-align: top;
+    padding-left:1em;
+    box-sizing: border-box;
+}
+.eventBoxDescription h3{
+    font-size:1em;
+    margin:0;
+}
+.newLocationsCarouselWrapper{
+    position:relative;
+}
+.newLocationsCarouselWrapper .newLocationsCarousel{
+    display:inline-block;
+    width:79%;
+}
+.newLocationsCarouselWrapper .newLocationsCarouselControls{
+    width:20%;
+    display:inline-block;
+    vertical-align: bottom;
+    height:2em;
+}
+.locationSlideWrapper{
+    position: relative;
+}
+.locationSlideWrapper .locationSlide{
+    position: relative;
+    display: block;   
+}
+.locationSlideWrapper .locationSlideDesc{
+    position: absolute;
+    top:0;
+    left:0;
+    width:auto;
+    height:auto;
+    padding:1em;
+    overflow: auto;  
+}
+.locationSlideWrapper .locationSlideTitle{
+    margin: 0;
+    line-height: 1;
+    height: 1em;
+    display: inline-block;
+    margin-right: 0.3em;
+    vertical-align: middle;
+}
+.locationSlideWrapper .locationSlideCategory{
+    display:inline-block;
+    vertical-align: middle;
+}

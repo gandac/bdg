@@ -19,6 +19,7 @@ import locationReducer from './components/LocationPage/locationReducer';
 import menusReducer from './components/Header/menusReducer';
 import mapReducer from './components/Map/mapReducer';
 import locationsReducer from './components/LocationsLoop/locationsReducer';
+import eventsReducer from './components/EventsLoop/eventsReducer';
 import searchReducer from './components/Search/searchReducer';
 
 const rootReducer = combineReducers({
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   map: mapReducer,
   locations: locationsReducer,
   search: searchReducer,
+  events: eventsReducer,
   // page: pageReducer
 });
 

@@ -15,6 +15,9 @@ export const SET_MENU = 'SET_MENU';
 
 export const TOGGLE_MAP = 'TOGGLE_MAP';
 
-export const GET_ALL_POSTS = 'GET_ALL_POSTS';
+export const GET_ALL_LOCATIONS = 'GET_ALL_LOCATIONS';
+export const GET_NEW_LOCATIONS = 'GET_NEW_LOCATIONS';
+export const GET_ALL_EVENTS = 'GET_ALL_EVENTS';
+
 
 export const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
