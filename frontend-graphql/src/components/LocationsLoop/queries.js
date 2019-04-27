@@ -2,10 +2,11 @@
 import gql from 'graphql-tag';
 
 export const ALL_LOCATIONS_QUERY = gql`
-  query AllPostsQuery($searchQuery: String!) {
+  query AllPostsQuery($searchQuery: String,$slug: String) {
   
     location( where: {
         search: $searchQuery,
+        name: $slug
         } ){
       edges {
         node {

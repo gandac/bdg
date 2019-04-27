@@ -40,7 +40,7 @@ class Header extends Component {
         this.props.startCategoryQuery();
 
         if( this.props.location.pathname == '/'){
-          this.props.onAllLocationsQuery(this.props.client , event.target.value , true);
+          this.props.onAllLocationsQuery(this.props.client , event.target.value , false);
         }else{
           this.props.onCategoryQuery(this.props.client , this.props.currentCatSlug , this.props.currentCatSlug , event.target.value );
         }

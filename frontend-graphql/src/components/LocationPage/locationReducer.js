@@ -2,7 +2,8 @@ import * as actionTypes from '../../store/actionTypes';
 
  const initialState = {
     title: null,
-    slug: null
+    slug: null,
+    loading:false,
  }
  const reducer = (state = initialState, action) => {
     switch(action.type){
@@ -15,7 +16,8 @@ import * as actionTypes from '../../store/actionTypes';
             
             return {
                 ...state,
-                ...action.location
+                ...action.location,
+                loading:false
             }
        
         case actionTypes.FETCH_LOCATION_FAILED:

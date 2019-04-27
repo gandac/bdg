@@ -30,17 +30,25 @@ const modifyStateAllPosts = (result , type,pageType) => {
 }
 
 
-export const allPostsQuery = (client , searchQuery = '' , allCategories = false ) =>{
+export const allPostsQuery = (client , searchQuery = '' ,  singleLocation = false ) =>{
 
     let theSearchQuery = searchQuery;
     let currentQuery = ALL_LOCATIONS_QUERY;
-     const pageType = theSearchQuery.length > 0 ? ['searchPage'] : ['homepage'];
+     let pageType = theSearchQuery.length > 0 ? ['searchPage'] : ['homepage'];
+     let slug = '';
+     console.log('aici');
+     if(singleLocation){
+         console.log('here');
+         theSearchQuery = '';
+         slug = searchQuery;
+         pageType = ['singleLocation']
+     }
     
       return async dispatch => {
           try{
           const result = await client.query({
               query: currentQuery,
-              variables: { searchQuery: theSearchQuery},
+              variables: { searchQuery: theSearchQuery , slug: slug},
           });
             dispatch(modifyStateAllPosts(result,actionTypes.GET_ALL_LOCATIONS,pageType));
             return;
