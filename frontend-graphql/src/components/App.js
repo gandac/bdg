@@ -7,8 +7,8 @@ import Home from './Homepage/Homepage';
 import Login from './LoginPage';
 import Search from './SearchPage';
 import Page from './Page';
-import PostPage from './PostPage';
-import Category from './Category';
+import PostPage from './Posts/PostPage';
+import Blog from './Posts/BlogPosts';
 import LocationPage from './LocationPage/LocationPage';
 import LocationCategoryPage from './LocationCategoryPage/LocationCategoryPage';
 import MapContainer from './Map/MapContainer';
@@ -22,10 +22,10 @@ export default () => (
         <Route exact path="/login" component={Login} />
         <Route exact path="/search" component={Search} />
         <Route exact path="/page/:slug" component={Page} />
-        <Route exact path="/post/:slug" component={PostPage} />
+        <Route exact path="/insiders/:slug?" component={Blog} />
+        <Route exact path="/insiders-post/:slug" component={PostPage} />
         <Route exact path="/location/:slug" component={LocationPage} />
         <Route exact path="/location_category/:parent/:slug?" component={LocationCategoryPage} />
-        <Route exact path="/category/:slug" component={Category} />
       </Switch>
     </div>
     <div>

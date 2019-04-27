@@ -21,6 +21,7 @@ import mapReducer from './components/Map/mapReducer';
 import locationsReducer from './components/LocationsLoop/locationsReducer';
 import eventsReducer from './components/EventsLoop/eventsReducer';
 import searchReducer from './components/Search/searchReducer';
+import postsReducer from './components/Posts/postsReducer';
 
 const rootReducer = combineReducers({
   category : categoryReducer,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   locations: locationsReducer,
   search: searchReducer,
   events: eventsReducer,
+  blog: postsReducer,
   // page: pageReducer
 });
 

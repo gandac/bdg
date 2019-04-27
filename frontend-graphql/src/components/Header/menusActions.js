@@ -29,6 +29,13 @@ const MENU_QUERY = gql`
       label
       type
     }
+    pageBy(uri: "homepage") {
+        title
+        content
+        text1
+        text2
+        text3
+    }
     footerMenu {
         url
         label
@@ -47,8 +54,10 @@ const MENU_QUERY = gql`
         const menus = { 
             headerMenu:  result.data.headerMenu,
             footerMenu: result.data.footerMenu,
-            settings: result.data.bdgSettings
+            settings: result.data.bdgSettings,
+            homepage: result.data.pageBy
         }
+        console.log(menus);
         return dispatch(fetchMenu(menus));
       
     }catch(err){

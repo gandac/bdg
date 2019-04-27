@@ -31,7 +31,7 @@ class NewLocationsSlider extends Component {
         let locations =  this.props.locations.map( location => <LocationSlide key={location.node.id} location={location}/>)
         let SliderTitle = this.props.type == 'search' ? 
         (<div><h2><span>{this.props.locations.length} Found Places for "{this.props.searchWord}" </span></h2></div>) : 
-         (<div><h2><span>{this.props.locations.length} New Places </span></h2><span>- Here are Bucharest newcomers. Nothing older than 30 days</span></div>);
+         (<div><h2><span>{this.props.locations.length} New Places </span></h2><div className="locationTitleDescription" dangerouslySetInnerHTML={{ __html: this.props.description ? this.props.description : null }}></div></div>);
    
         return (<div className="newLocationsCarouselWrapper">
                     <div className="newLocationsCarousel">

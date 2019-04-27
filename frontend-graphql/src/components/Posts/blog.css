@@ -1,0 +1,10 @@
+.PostsGrid{
+    padding-right: 5em;
+    box-sizing: border-box;
+
+}
+.postItemWrapper{
+    padding: 3em;
+    background:rgba(255,255,255,0.2);
+    margin:4em 0;
+}

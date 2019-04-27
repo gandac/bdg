@@ -10,7 +10,7 @@ import * as actions from './categoryActions';
 import * as loopActions from '../LocationsLoop/locationsActions';
 import CategoryMenu from '../ui/categoryMenu';
 import LocationsGrid from './locationsGrid';
-import LocationPageMarkup from './locationPageMarkup';
+import LocationPageMarkup from '../ui/pageLayout';
 import {setSearchValue} from '../Search/searchActions';
 
 /**

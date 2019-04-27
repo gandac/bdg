@@ -21,7 +21,7 @@ function withColor(InputComponent) {
                 if(this.props.theCategoryColor){
                     this.setState({ currentStyles: colorsJson[this.props.theCategoryColor].layoutColors});
                 }
-            }else if( this.props.currentPageType.includes('homepage')){
+            }else{
                 this.setState({ currentStyles: colorsJson.colorset1.layoutColors});
             }
 
@@ -36,12 +36,16 @@ function withColor(InputComponent) {
                  this.setState({ currentStyles: colorsJson.colorset1.layoutColors});
                 }
             }
-            console.log('nextProps currentProps',nextColor,this.props.theCategoryColor);
-            if( this.props  &&    currentPageType.includes('category') && nextColor !== this.props.theCategoryColor ){
-                console.log('here');
-             if(colorsJson[nextColor]){
-               this.setState({ currentStyles: colorsJson[nextColor].layoutColors});
-             }
+         
+            if( this.props  &&    currentPageType && nextColor !== this.props.theCategoryColor ){
+                if(currentPageType.includes('category')){
+                    if(colorsJson[nextColor]){
+                        this.setState({ currentStyles: colorsJson[nextColor].layoutColors});
+                    }
+                }else{
+                    this.setState({ currentStyles: colorsJson.colorset1.layoutColors});
+                }
+             
             }
         //    console.log('face loggggg' , this.props);
        };

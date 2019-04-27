@@ -84,7 +84,23 @@
     margin-right: 0.3em;
     vertical-align: middle;
 }
-.newLocationsCarousel > span{
+.newLocationsCarousel  .locationTitleDescription{
     display: inline-block;
     vertical-align: middle;
 }
+.insidersSectionWrapper{
+    margin-top:2em;
+}
+.insidersSectionTitle{
+
+    display:inline-block;
+    vertical-align: middle;
+}
+.insidersSectionTitle h2{
+    margin:0;
+}
+.insidersArrow{
+    display: inline-block;
+    visibility: middle;
+}
+

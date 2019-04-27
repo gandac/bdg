@@ -10,12 +10,19 @@ h1,h2,h3,h4,h5,h6{
 h2{
   font-size: 1.9em;
 }
+h2 p{
+  margin:0;
+}
+a:visited{
+  color:inherit;
+}
 a{
   text-decoration: none;
 }
 a:hover{
   text-decoration: underline;
 }
+
 input {
   max-width: 500px;
 }

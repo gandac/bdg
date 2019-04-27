@@ -10,12 +10,13 @@ import {allPostsQuery, startSubcategoryQuery, newLocationsQuery,locationsStart} 
 import {allEventsQuery} from '../EventsLoop/eventsActions';
 //import CategoryMenu from '../ui/categoryMenu';
 import {startCategoryQuery} from '../LocationCategoryPage/categoryActions';
-import LocationPageMarkup from '../LocationCategoryPage/locationPageMarkup';
+import LocationPageMarkup from '../ui/pageLayout';
 import colorsJson from '../../static/color-configuration.json';
 import EventsCarousel from '../EventsLoop/eventsCarousel';
 import {setSearchValue} from '../Search/searchActions';
 import NewLocationsSlider from './NewLocationsSlider';
 import withColor from '../../hoc/withColor';
+import GoToInsiders from './goToInsiders';
 import './homepage.css';
 /**
  * Fetch and display a Category
@@ -53,9 +54,10 @@ class Homepage extends Component {
                           /> : null}   
                           {this.props.newLocations ? 
                             ! this.props.isSearch ? 
-                              <NewLocationsSlider locations={this.props.newLocations} colors={currentStyles}/> : 
-                              <NewLocationsSlider locations={this.props.locations} type='search' searchWord={this.props.searchValue} colors={currentStyles}/>
-                          : null}    
+                              <NewLocationsSlider locations={this.props.newLocations} colors={currentStyles} description={this.props.staticInfo.text1}/> : 
+                              <NewLocationsSlider locations={this.props.locations} type='search' searchWord={this.props.searchValue} colors={currentStyles} description={this.props.staticInfo.text1}/>
+                          : null}
+                          <GoToInsiders color={currentStyles.primary} info={this.props.staticInfo} />
                     </div>
                     <div className="rightSide">
     
@@ -78,7 +80,8 @@ const mapStateToProps = state => {
     isSearch: state.locations.pageType == 'searchPage',
     searchValue: state.search.searchValue,
     locations: state.locations.posts,
-    newLocations : state.locations.newPosts
+    newLocations : state.locations.newPosts,
+    staticInfo: state.menus.staticInfo.homepage
   }
 }
 const mapDispatchToProps = dispatch => {

@@ -191,4 +191,73 @@ function register_event_fields( $fields ) {
 
 }
 
+add_filter( 'graphql_page_fields', 'register_page_fields'  , 20 ,2 );
 
+function register_page_fields( $fields ) {
+    $fields['text1'] = [
+        'type' => WPGraphQL\Types::string(),
+        'description' => __( 'The coordinates of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Post $post, array $args, $context, $info ) {
+            $text = get_field('text1',$post->ID);
+            if( !empty($text)){
+                return $text;
+            }else{
+                return null;
+            } 
+        },
+    ];
+
+    $fields['text2'] = [
+        'type' => WPGraphQL\Types::string(),
+        'description' => __( 'The coordinates of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Post $post, array $args, $context, $info ) {
+            $text = get_field('text2',$post->ID);
+            if( !empty($text)){
+                return $text;
+            }else{
+                return null;
+            } 
+        },
+    ];
+
+    $fields['text3'] = [
+        'type' => WPGraphQL\Types::string(),
+        'description' => __( 'The coordinates of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Post $post, array $args, $context, $info ) {
+            $text = get_field('text3',$post->ID);
+            if( !empty($text)){
+                return $text;
+            }else{
+                return null;
+            } 
+        },
+    ];
+
+    $fields['text4'] = [
+        'type' => WPGraphQL\Types::string(),
+        'description' => __( 'The coordinates of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Post $post, array $args, $context, $info ) {
+            $text = get_field('text4',$post->ID);
+            if( !empty($text)){
+                return $text;
+            }else{
+                return null;
+            } 
+        },
+    ];
+
+    $fields['text5'] = [
+        'type' => WPGraphQL\Types::string(),
+        'description' => __( 'The coordinates of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Post $post, array $args, $context, $info ) {
+            $text = get_field('text5',$post->ID);
+            if( !empty($text)){
+                return $text;
+            }else{
+                return null;
+            } 
+        },
+    ];
+    return $fields;
+
+}

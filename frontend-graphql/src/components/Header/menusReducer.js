@@ -3,7 +3,7 @@ import * as actionTypes from '../../store/actionTypes';
  const initialState = {
     headerMenu: [],
     footerMenu: [],
-    staticInfo: false,
+    staticInfo: {},
     loading: false
   };
  const reducer = (state = initialState, action) => {
@@ -13,6 +13,10 @@ import * as actionTypes from '../../store/actionTypes';
                 ...state,
                 ...action.menus,
                 siteSettings : action.siteSettings,
+                staticInfo: {
+                    ...state.staticInfo,
+                    homepage: {...action.menus.homepage}
+                },
                 loading: false
             }
         case actionTypes.START_MENU_QUERY:
@@ -23,6 +27,14 @@ import * as actionTypes from '../../store/actionTypes';
             }
         default:
             return state;
+        // case actionTypes.HOMEPAGE_STATIC_INFO:
+        //     return{
+        //         ...state,
+        //         staticInfo: {
+        //             ...state.staticInfo,
+        //             homepage: {...action.payload}
+        //         }
+        //     }
     }
 }
 export default reducer;
