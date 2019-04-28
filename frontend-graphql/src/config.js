@@ -5,6 +5,9 @@ let url = 'http://localhost:8080/graphql';
 if (process.env.HOME === '/home/node') {
   url = 'http://wp-headless:8080/graphql';
 }
+if (process.env.SERV === 'RB') {
+  url = 'http://http://37.251.146.230:8080/graphql';
+}
 const Config = {
   gqlUrl: url,
 };
