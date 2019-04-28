@@ -31,5 +31,8 @@ export const SET_POSTS_CATEGORY = 'SET_POSTS_CATEGORY';
 export const SET_POST = 'SET_POST';
 export const RESET_POST = 'RESET_POST';
 
+export const SET_PAGE = 'SET_PAGE';
+export const FETCH_PAGE_START = 'FETCH_PAGE_START';
+
 
 

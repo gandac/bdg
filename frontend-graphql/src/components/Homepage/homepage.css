@@ -38,56 +38,7 @@
     font-size:1em;
     margin:0;
 }
-.newLocationsCarouselWrapper{
-    position:relative;
-}
-.newLocationsCarouselWrapper .newLocationsCarousel{
-    display:inline-block;
-    width:79%;
-}
-.newLocationsCarouselWrapper .newLocationsCarouselControls{
-    width:20%;
-    display:inline-block;
-    vertical-align: bottom;
-    height:2em;
-}
-.locationSlideWrapper{
-    position: relative;
-}
-.locationSlideWrapper .locationSlide{
-    position: relative;
-    display: block;   
-}
-.locationSlideWrapper .locationSlideDesc{
-    position: absolute;
-    top:0;
-    left:0;
-    width:auto;
-    height:auto;
-    padding:1em;
-    overflow: auto;  
-}
-.locationSlideWrapper .locationSlideTitle{
-    margin: 0;
-    line-height: 1;
-    height: 1em;
-    display: inline-block;
-    margin-right: 0.3em;
-    vertical-align: middle;
-}
-.locationSlideWrapper .locationSlideCategory{
-    display:inline-block;
-    vertical-align: middle;
-}
-.newLocationsCarousel h2{
-    display: inline-block;
-    margin-right: 0.3em;
-    vertical-align: middle;
-}
-.newLocationsCarousel  .locationTitleDescription{
-    display: inline-block;
-    vertical-align: middle;
-}
+
 .insidersSectionWrapper{
     margin-top:2em;
 }

@@ -10,8 +10,10 @@ import { allPostsQuery } from '../LocationsLoop/locationsActions';
 import { toogleMapActive } from '../Map/mapActions';
 import withColor from '../../hoc/withColor';
 import MapTrigger from '../ui/mapTrigger';
-
+import GalleryCarousel from '../Homepage/NewLocationsSlider';
 import Breadcrumbs from '../ui/breadcrumbs';
+import ShareButtons from '../Footer/footerLogos';
+import './location.css';
 
 
 /**
@@ -44,17 +46,27 @@ class Location extends Component {
       if(this.props.loading){
         content = <PageLayout currentStyles ={currentStyles} > <Preloader color={currentStyles} type="page"/>  </PageLayout>
       }else{
+        const currentCategory = currentLocation.location_categories ? (currentLocation.location_categories.edges[0].node.name) : null
         content = <PageLayout currentStyles ={currentStyles} >
         <div className="constraint clearOverflow">
-                    <div className="leftSide">
+                    
+                    <div className="leftSide locationLeft">
                     <div className="pa2">
-                        <h1>{currentLocation.title}</h1>
+                         <GalleryCarousel images={currentLocation.gallery} colors={currentStyles}  />
+                         <div className="grid12-3">
+                            <div className="singleTitleCategory">
+                              <h1>{currentLocation.title}</h1>
+                              <div className="singleCategoryTitle" dangerouslySetInnerHTML={{__html: currentCategory}} />
+                            </div>
+                            <div className="singleAddressField" dangerouslySetInnerHTML={{__html: currentLocation.address}} />
+                            <div className="locationExternalLinks">
+                              <ShareButtons settings={{facebookUrl: currentLocation.fbLink , instaUrl : currentLocation.inLink}} color={currentStyles.primary}/>
+                            </div>
+                          </div>
+                          <div className="grid12-9">
+                            <div className="locationPageContent" dangerouslySetInnerHTML={{ __html: currentLocation.content }}/>
+                          </div>
                       </div>
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: currentLocation.content,
-                        }}
-                      />
                     </div>
                     <div className="rightSide">
                        {this.props.currentLocation ?  <Breadcrumbs location={this.props.currentLocation} /> : null }
@@ -79,7 +91,6 @@ const mapDispatchToProps = dispatch => {
     startLocationQuery : () => dispatch(actions.startLocationQuery()),
     allPostsQuery : (client , search , isSingle) => dispatch(allPostsQuery(client,search , isSingle)),
     toggleMapActive : () => dispatch(toogleMapActive()),
-
   }
 }
 

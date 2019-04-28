@@ -22,6 +22,7 @@ import locationsReducer from './components/LocationsLoop/locationsReducer';
 import eventsReducer from './components/EventsLoop/eventsReducer';
 import searchReducer from './components/Search/searchReducer';
 import postsReducer from './components/Posts/postsReducer';
+import pageReducer from './components/Page/pageReducer';
 
 const rootReducer = combineReducers({
   category : categoryReducer,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   locations: locationsReducer,
   search: searchReducer,
   events: eventsReducer,
+  page: pageReducer,
   blog: postsReducer,
   // page: pageReducer
 });

@@ -1,9 +1,8 @@
 import React,{Component} from 'react';
-import LocationSlide from './locationSlide';
-import ImageSlide from '../ui/imageSlide';
-import Slider,{slickNext,} from "react-slick";
+import GallerySlide from './gallerySlide';
+import Slider from "react-slick";
 import IconArrow from "../ui/svg/iconArrow";
-import './slider.css';
+
 
 
 class NewLocationsSlider extends Component {
@@ -49,22 +48,23 @@ class NewLocationsSlider extends Component {
                     </div>
                 </div> 
                  );
-       
-     } else if(this.props.images){ 
-                    let images = this.props.images.map(image => <ImageSlide image={image}/>);
-                    return (<div className="newLocationsCarouselWrapper">
-                                <div className="newLocationsCarousel">
-                                    <Slider ref={slider => this.slider = slider} {...sliderSettings}>
-                                        {images}
-                                    </Slider >
-                                </div>
-                                <div class="newLocationsCarouselControls">
-                                <IconArrow className="prevArrow" color={this.props.colors.primary} onClick={() => this.slider.slickPrev()}/> 
-                                {this.state.index} / {this.props.images.length}
-                                <IconArrow color={this.props.colors.primary} onClick={() => this.slider.slickNext()}/> 
-                                </div>
-                            </div> 
-                            )
+    }else if(this.props.images){ 
+        let images = this.props.images.map(image => {
+                               const postBoxSizeUrl = image.mediaDetails.sizes ? image.mediaDetails.sizes.filter( (element) => element.name == 'postbox') : null; 
+                                return (<img src={postBoxSizeUrl} />); });
+        return (<div className="newLocationsCarouselWrapper">
+                    <div className="newLocationsCarousel">
+                        <Slider ref={slider => this.slider = slider} {...sliderSettings}>
+                            {images}
+                        </Slider >
+                    </div>
+                    <div class="newLocationsCarouselControls">
+                    <IconArrow className="prevArrow" color={this.props.colors.primary} onClick={() => this.slider.slickPrev()}/> 
+                    {this.state.index} / {this.props.locations.length}
+                    <IconArrow color={this.props.colors.primary} onClick={() => this.slider.slickNext()}/> 
+                    </div>
+                </div> 
+                )
     }else{
         return null;
     }

@@ -10,7 +10,7 @@ import * as actions from './categoryActions';
 import * as loopActions from '../LocationsLoop/locationsActions';
 import CategoryMenu from '../ui/categoryMenu';
 import LocationsGrid from './locationsGrid';
-import LocationPageMarkup from '../ui/pageLayout';
+import PageLayout from '../ui/pageLayout';
 import {setSearchValue} from '../Search/searchActions';
 
 /**
@@ -65,13 +65,13 @@ class LocationCategoryPage extends Component {
         category  = this.props.category;
         subcategories = this.props.children;
       }
-      let content = <LocationPageMarkup currentStyles ={currentStyles} />;
+      let content = <PageLayout currentStyles ={currentStyles} />;
       if(this.props.loading){
-        content = <LocationPageMarkup currentStyles ={currentStyles} > <Preloader color={currentStyles} type="page"/>  </LocationPageMarkup>
+        content = <PageLayout currentStyles ={currentStyles} > <Preloader color={currentStyles} type="page"/>  </PageLayout>
       }else{
         let locationGrid = this.props.postsLoading ? <Preloader color={currentStyles} type="single"/> :
         <LocationsGrid posts ={category.posts} color={currentStyles}></LocationsGrid> ;
-        content = <LocationPageMarkup currentStyles ={currentStyles} >
+        content = <PageLayout currentStyles ={currentStyles} >
                   <div className="constraint clearOverflow">
                     <div className="leftSide">
                       {locationGrid} 
@@ -81,7 +81,7 @@ class LocationCategoryPage extends Component {
                       <MapTrigger onClick={() => this.props.toggleMapActive()} color={currentStyles.accent}/>
                   </div>
                   </div>
-               </LocationPageMarkup>
+               </PageLayout>
 
       }
       return content;

@@ -97,6 +97,22 @@ function wp1482371_custom_taxonomy_args( $args, $taxonomy ) {
 add_filter( 'register_taxonomy_args', 'wp1482371_custom_taxonomy_args', 20, 2 );
 
 
+function keepJustNumbers($value){
+    $value = preg_replace('/[^0-9.]+/', '', $value);
+   return $value;
+}
+function getIdsFromGalleryFied($field){
+   $ids = explode(',',$field);
+   $clearedIds = array_map('keepJustNumbers',$ids);
+   $arrayOfMedia = [];
+   foreach($clearedIds as $el){
+        $metas =   get_post($el);
+        $arrayOfMedia[] = $metas;
+   }
+   
+    return $arrayOfMedia;
+}
+
 
 add_filter( 'graphql_locations_fields', 'register_location_fields'  , 20 ,2 );
 
@@ -127,6 +143,44 @@ function register_location_fields( $fields ) {
             $current_date1 = date('Y-m-d', time()) ;
             $days = dateDifference($date1, $current_date1);
             return ( ! empty( $days ) && $days < 30 )  ? true : false;
+        },
+    ];
+
+    $fields['address'] = [
+        'type' => WPGraphQL\Types::string(),
+        'description' => __( 'The coordinates of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Post $post, array $args, $context, $info ) {
+            $cfield = get_field('address',$post->ID);
+            return ( ! empty( $cfield ) ) ? $cfield : null;
+        },
+    ];
+
+    $fields['fbLink'] = [
+        'type' => WPGraphQL\Types::string(),
+        'description' => __( 'The coordinates of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Post $post, array $args, $context, $info ) {
+            $cfield = get_field('fb_link',$post->ID);
+            return ( ! empty( $cfield ) ) ? $cfield : null;
+        },
+    ];
+    $fields['inLink'] = [
+        'type' => WPGraphQL\Types::string(),
+        'description' => __( 'The coordinates of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Post $post, array $args, $context, $info ) {
+            $cfield = get_field('in_link',$post->ID);
+            return ( ! empty( $cfield ) ) ? $cfield : null;
+        },
+    ];
+    $fields['gallery'] = [
+        'type' => WPGraphQL\Types::list_of(WPGraphQL\Types::post_object('attachment')),
+        'description' => __( 'The coordinates of the ', 'my-graphql-extension-namespace' ),
+        'resolve' => function( \WP_Post $post, array $args, $context, $info ) {
+            $cfield = get_field('gallery',$post->ID,false,false);
+            $attachemntIds = getIdsFromGalleryFied($cfield);
+            
+           
+            
+            return ( ! empty( $cfield ) ) ? $attachemntIds : null;
         },
     ];
     

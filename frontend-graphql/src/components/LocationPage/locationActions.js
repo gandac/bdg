@@ -30,6 +30,24 @@ query LOCATION_QUERY($filter: String!) {
           lat
           lng
           id
+          address
+          fbLink
+          inLink
+          fbLink
+          inLink
+          gallery{
+           sourceUrl
+            mediaDetails {
+              sizes {
+                file
+                height
+                mimeType
+                name
+                sourceUrl
+                width
+              } 
+            }
+          }
           featuredImage{
             sourceUrl
             mediaDetails {

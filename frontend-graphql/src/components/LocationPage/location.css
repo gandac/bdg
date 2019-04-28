@@ -1,0 +1,22 @@
+.locationLeft .grid12-3 , .locationLeft .grid12-9{
+    vertical-align: top;
+}
+.singleTitleCategory h1 , .singleTitleCategory .singleCategoryTitle{
+    display: inline-block;
+    vertical-align: middle;
+    margin-right:0.4em;
+}
+.singleAddressField{
+    padding-right: 6em;
+    box-sizing: border-box;
+    padding-right: 40%;
+}
+.locationPageContent{
+    line-height: 1.33em;
+}
+.locationExternalLinks .iconFooter{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 0.7em;
+}

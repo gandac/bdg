@@ -6,7 +6,7 @@ import Footer from './Footer/Footer';
 import Home from './Homepage/Homepage';
 import Login from './LoginPage';
 import Search from './SearchPage';
-import Page from './Page';
+import Page from './Page/Page';
 import PostPage from './Posts/PostPage';
 import Blog from './Posts/BlogPosts';
 import LocationPage from './LocationPage/LocationPage';
