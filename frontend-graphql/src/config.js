@@ -7,7 +7,7 @@ if (process.env.HOME === '/home/node') {
 }
 //console.log('node enviroment: ' , process.env);
 if (process.env.NODE_ENV === 'production' || process.env.REACT_APP_ENV === 'production' ) {
-  url = 'http://http://37.251.146.230:8080/graphql';
+  url = 'http://37.251.146.230:8080/graphql';
 }
 const Config = {
   gqlUrl: url,
