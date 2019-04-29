@@ -50,7 +50,7 @@ class NewLocationsSlider extends Component {
                 </div> 
                  );
        
-     } else if(this.props.images){ 
+     } else if(this.props.images ){ 
                     let images = this.props.images.map(image => <ImageSlide image={image}/>);
                     return (<div className="newLocationsCarouselWrapper">
                                 <div className="newLocationsCarousel">
