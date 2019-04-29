@@ -7,9 +7,11 @@ const breadcrumbs = (props) => {
     // const mainCategoryLink = mainCategory ? props.location.location_categories.edges[0].node.link;
 
      const subCategory = mainCategory ? 
-                        props.location.location_categories.edges[0].node.children ?
+                        props.location.location_categories.edges[0] ? 
+                        props.location.location_categories.edges[0].node.children.edges[0] ?
                          props.location.location_categories.edges[0].node.children.edges[0].node 
-                         : null
+                         :null
+                         :null
                          :null;
     // const subCategoryLink = subCategory ? props.location.location_categories.edges[0].node.children.edges[0].node.link : null;
     return (
