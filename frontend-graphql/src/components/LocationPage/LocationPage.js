@@ -7,7 +7,7 @@ import PageLayout from '../ui/pageLayout';
 import Preloader from '../ui/svg/preloader';
 import {compose} from 'recompose';
 import { allPostsQuery } from '../LocationsLoop/locationsActions';
-import { toogleMapActive } from '../Map/mapActions';
+import { toogleMapActive , toggleMapInactive } from '../Map/mapActions';
 import withColor from '../../hoc/withColor';
 import MapTrigger from '../ui/mapTrigger';
 import GalleryCarousel from '../Homepage/NewLocationsSlider';
@@ -23,6 +23,7 @@ class Location extends Component {
  
 
   componentDidMount() {
+    this.props.toggleMapInactive();
     this.props.startLocationQuery();
     this.props.onLocationQuery(this.props.client , this.props.match.params.slug);
    
@@ -88,6 +89,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onLocationQuery: (client, slug) => dispatch(actions.executeLocationQuery(client , slug)),
+    toggleMapActive : () => dispatch(toggleMapInactive),
     startLocationQuery : () => dispatch(actions.startLocationQuery()),
     allPostsQuery : (client , search , isSingle) => dispatch(allPostsQuery(client,search , isSingle)),
     toggleMapActive : () => dispatch(toogleMapActive()),

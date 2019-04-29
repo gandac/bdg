@@ -21,7 +21,7 @@
     transition: opacity .3s ease;
     height: calc( 100vh - 4.2em);
     width:100%;
-    z-index: 9;
+    z-index: 335;
     /* visibility: hidden; */
 }
 .theMapWrapper.active{
