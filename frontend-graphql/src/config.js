@@ -5,6 +5,7 @@ let url = 'http://localhost:8080/graphql';
 if (process.env.HOME === '/home/node') {
   url = 'http://wp-headless:8080/graphql';
 }
+console.log('node enviroment: ' , process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'production' || process.env.ENV === 'production' ) {
   url = 'http://http://37.251.146.230:8080/graphql';
 }
