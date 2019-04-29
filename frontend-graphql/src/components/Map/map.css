@@ -19,7 +19,7 @@
     opacity: 0;
     visibility: hidden;
     transition: opacity .3s ease;
-    height: calc( 100vh - 4.2em);
+    height: calc( 100vh - 4.2em );
     width:100%;
     z-index: 335;
     /* visibility: hidden; */

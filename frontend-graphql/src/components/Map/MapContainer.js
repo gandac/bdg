@@ -8,7 +8,11 @@ import CustomGoogleMap from './CustomGoogleMap';
 
 //BEGIN CONTAINER
 class MapContainer extends Component {
-      
+      componentDidMount(){
+        if(window.location.hash == '#mapView'){
+          this.props.onToggleMapActive();
+        }
+      }
       render(){
         const mapActiveClass = this.props.isMapActive ? 'active' : '';
         let markersPosts = this.props.markersPosts;
@@ -49,9 +53,9 @@ const mapStateToProps = state => {
         isMapActive: state.map.active
     }
 }
-// const mapDispatchToProps = dispatch =>{
-//   return { 
-//     onToggleMap : (isActive) => dispatch(mapActions.toogleMap(isActive))
-//   }
-// }
-export default  connect(mapStateToProps)(CssModules(MapContainer,classes));
+const mapDispatchToProps = dispatch =>{
+  return { 
+    onToggleMapActive : () => dispatch(mapActions.toogleMapActive())
+  }
+}
+export default  connect(mapStateToProps,mapDispatchToProps)(CssModules(MapContainer,classes));
