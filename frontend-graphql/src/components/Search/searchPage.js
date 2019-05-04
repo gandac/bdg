@@ -15,19 +15,11 @@ import LocationPageMarkup from './locationPageMarkup';
 /**
  * Fetch and display a Category
  */
-class LocationCategoryPage extends Component {
+class searchPage extends Component {
 
   componentDidMount() {
     this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug);
   }
-
-  // shouldComponentUpdate(prevProps){
-    
-  //   if ( prevProps.match.params.parent !== this.props.match.params.parent ){
-  //     return true;
-  //   }
-  //     return true;
-  // }
 
   componentWillUpdate(nextProps) {
     if ( nextProps.match.params.parent !== this.props.match.params.parent  ){
@@ -94,7 +86,6 @@ const mapDispatchToProps = dispatch => {
     startCategoryQuery : () => dispatch(actions.startCategoryQuery()),
     startSubcategoryQuery :() => dispatch(loopActions.startSubcategoryQuery()),
     toggleMapActive : () => dispatch(mapActions.toogleMapActive())
-    
   }
 }
-export default compose(connect(mapStateToProps, mapDispatchToProps) , withApollo, withColor )(LocationCategoryPage);
+export default compose(connect(mapStateToProps, mapDispatchToProps) , withApollo, withColor )(searchPage);
