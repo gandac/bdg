@@ -18,7 +18,7 @@ const categoryMenu = (props) => {
     <div className="categoryMenuWrapper">
         {props.children ? props.children : null}
         <div className="mainCategoryAction">
-            <NavLink exact to={'/location_category/' + props.parent.slug } className="categoryLink" >Show all</NavLink>
+           { props.categories.length ?  <NavLink exact to={'/location_category/' + props.parent.slug } className="categoryLink" >Show all</NavLink>  :null }
         </div>
         <div>{categories}</div>
     </div>
