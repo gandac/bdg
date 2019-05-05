@@ -14,7 +14,7 @@ const typeToSearch = React.forwardRef( (props,ref) => {
                  <span className="searchInCategory">
                      <input style={{color: props.color}} type="checkbox" id="inCategory" onChange={(event) => props.searchInCategoryChange(event)} checked={props.searchInCategory}/>
                      
-                     <label style={{color: props.color}} htmlFor="inCategory" >search in category?</label>
+                     <label style={{color: props.color}} htmlFor="inCategory" >search only in {props.currentCatTitle}?</label>
                 </span>
                  :
                  null   

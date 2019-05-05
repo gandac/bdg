@@ -33,6 +33,7 @@ class Header extends Component {
   componentWillUpdate(nextProps) {
     if ( nextProps.location.pathname !== this.props.location.pathname ){
       this.clearTypeValue();
+      this.setState({inputSearch : false});
     }
   }
     onSearchType = (event) => {
@@ -94,6 +95,7 @@ class Header extends Component {
               currentPathname = {this.props.location.pathname}
               inputIsFocused = {this.state.inputSearch}
               searchInCategory = {this.props.isSearchInCategory}
+              currentCatTitle = {this.props.currentCatTitle}
               searchInCategoryChange={(event) => this.searchInCategoryChange(event)}
               ref={this.inputRef}
               />
@@ -111,6 +113,7 @@ const mapStateToProps = (state) => {
      menus: state.menus.headerMenu,
      mapActive : state.map.active,
      currentCatSlug: state.category.slug,
+     currentCatTitle: state.category.name,
      isSearchInCategory : state.search.searchInAllCategories,
      searchValue: state.search.searchValue,
   }
