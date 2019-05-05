@@ -55,7 +55,7 @@ class searchPage extends Component {
         <Preloader color={currentStyles} type="single"/> :
         locations.length > 0 ? 
         <LocationsGrid posts ={locations} color={currentStyles}></LocationsGrid> :
-        <h1>No results found for '{params.s}'</h1>;
+        <h3>No results found</h3>;
         content = <PageLayout currentStyles ={currentStyles} >
                   <div className="constraint clearOverflow">
                     <div className="leftSide">

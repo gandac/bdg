@@ -25,6 +25,7 @@ class Header extends Component {
     this.inputRef = React.createRef();
   }
   state = {
+    searchFieldValue: '',
     inputSearch : false
   }
   componentDidMount() { 
@@ -36,28 +37,29 @@ class Header extends Component {
       this.setState({inputSearch : false});
     }
   }
+  doTheSearch = () => {
+    this.props.setSearchValue(this.state.searchFieldValue);
+    this.props.startCategoryQuery();
+      if(this.props.isSearchInCategory){
+        this.props.onCategoryQuery(this.props.client , this.props.currentCatSlug , this.props.currentCatSlug , this.state.searchFieldValue );
+      }else{
+        this.props.history.push({
+          pathname: '/search',
+            search: 's='+this.state.searchFieldValue
+          });
+      }
+   }
     onSearchType = (event) => {
       
       if(event.target.value){
-        this.setState({inputSearch: true});
+        this.setState({...this.state,inputSearch: true});
         if(event.key == 'Enter'){
-          
-          this.props.setSearchValue(event.target.value);
-          this.props.startCategoryQuery();
-          if(this.props.isSearchInCategory){
-            this.props.onCategoryQuery(this.props.client , this.props.currentCatSlug , this.props.currentCatSlug , event.target.value );
-          }else{
-            this.props.history.push({
-              pathname: '/search',
-              search: 's='+event.target.value
-             });
-          }
-         
+          this.doTheSearch();
         }
-
-        }else{
+      }else{
           this.setState({inputSearch: false});
-        }
+      }
+     
    }
    searchInCategoryChange = (event) => {
       this.props.searchInCategory(event.target.checked);
@@ -65,7 +67,11 @@ class Header extends Component {
    clearTypeValue = () => {
      if(this.inputRef.current){
       this.inputRef.current.value = '';
+      this.setState({searchFieldValue: ''});
      }
+   }
+   onSearchInputChange = (event) => {
+    this.setState({...this.state , searchFieldValue: event.target.value});
    }
 
   render() {
@@ -96,6 +102,8 @@ class Header extends Component {
               inputIsFocused = {this.state.inputSearch}
               searchInCategory = {this.props.isSearchInCategory}
               currentCatTitle = {this.props.currentCatTitle}
+              inputValue = {this.state.searchFieldValue}
+              onInputChange = {(event)=> this.onSearchInputChange(event)}
               searchInCategoryChange={(event) => this.searchInCategoryChange(event)}
               ref={this.inputRef}
               />

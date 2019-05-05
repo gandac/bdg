@@ -7,7 +7,7 @@ const typeToSearch = React.forwardRef( (props,ref) => {
     return (<div className="typeToSearch">
                 <ZoomSvg color={props.color} />
 
-                <input id="theSearchInput" to="/search" ref={ref} placeholder="Type to search" className="searchInput ml1 no-underline black" style={{color: props.color}} onKeyUp={(event) => props.onType(event)} />
+                <input id="theSearchInput" to="/search" ref={ref} placeholder="Type to search" className="searchInput ml1 no-underline black" style={{color: props.color}} onKeyUp={(event) => props.onType(event)} onChange={(event) => props.onInputChange(event)} value={props.inputValue} />
                 {isCategory 
                  && props.inputIsFocused
                  ? 
