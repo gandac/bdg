@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { withApollo } from 'react-apollo';
 import {compose} from 'recompose';
 import {connect} from 'react-redux';
+import queryString from 'query-string';
 import withColor from '../../hoc/withColor';
 import Preloader from '../ui/svg/preloader';
 import * as mapActions from '../Map/mapActions';
 import MapTrigger from  '../ui/mapTrigger';
-import * as actions from './categoryActions';
+import * as actions from './searchActions';
 import * as loopActions from '../LocationsLoop/locationsActions';
-import CategoryMenu from '../ui/categoryMenu';
-import LocationsGrid from './locationsGrid';
-import LocationPageMarkup from './locationPageMarkup';
+import LocationsGrid from '../LocationCategoryPage/locationsGrid';
+import PageLayout from '../ui/pageLayout';
 
 /**
  * Fetch and display a Category
@@ -18,54 +18,56 @@ import LocationPageMarkup from './locationPageMarkup';
 class searchPage extends Component {
 
   componentDidMount() {
-    this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug);
+  //  console.log(this.props.location.search);
+    let params = queryString.parse(this.props.location.search);
+    this.props.startLocations();
+    this.props.allLocationsQuery(this.props.client , params.s , false);
+    // this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug);
   }
 
   componentWillUpdate(nextProps) {
-    if ( nextProps.match.params.parent !== this.props.match.params.parent  ){
-       this.props.startCategoryQuery();
-    }
-    if ( this.props.match.params.slug !== nextProps.match.params.slug ){
-      this.props.startSubcategoryQuery();
+    if ( this.props.location.search !== nextProps.location.search  ){
+      this.props.startLocations();
     }
  }
  
  componentDidUpdate(prevProps){
-  if ( prevProps.match.params.parent !== this.props.match.params.parent ||  prevProps.match.params.slug !== this.props.match.params.slug){
-    this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug);
-  }
-  if ( this.props.match.params.slug !== prevProps.match.params.slug ){
-    //this.setState({...this.state,productLoading: false});
+  if ( this.props.location.search !== prevProps.location.search){
+    let params = queryString.parse(this.props.location.search)
+    this.props.allLocationsQuery(this.props.client , params.s , false);
   }
  }
   render() {
+    let params = queryString.parse(this.props.location.search);
     const currentStyles = {
       ...this.props.currentStyles
     }
-  let category = null,
-      subcategories = null;
-    
+  let locations = null;
 
-    if ( this.props.category ){
-        category  = this.props.category;
-
+    if ( this.props.locations ){
+        locations  = this.props.locations;
       }
-      let content = <LocationPageMarkup currentStyles ={currentStyles} />;
+      let content = <PageLayout currentStyles ={currentStyles} />;
       if(this.props.loading){
-        content = <LocationPageMarkup currentStyles ={currentStyles} > <Preloader color={currentStyles} type="page"/>  </LocationPageMarkup>
+        content = <PageLayout currentStyles ={currentStyles} > <Preloader color={currentStyles} type="page"/>  </PageLayout>
       }else{
-        let locationGrid = this.props.postsLoading ? <Preloader color={currentStyles} type="single"/> :
-        <LocationsGrid posts ={category.posts} color={currentStyles}></LocationsGrid> ;
-        content = <LocationPageMarkup currentStyles ={currentStyles} >
+        let locationGrid = this.props.postsLoading ? 
+        <Preloader color={currentStyles} type="single"/> :
+        locations.length > 0 ? 
+        <LocationsGrid posts ={locations} color={currentStyles}></LocationsGrid> :
+        <h1>No results found for '{params.s}'</h1>;
+        content = <PageLayout currentStyles ={currentStyles} >
                   <div className="constraint clearOverflow">
                     <div className="leftSide">
-                      {locationGrid} 
+                    
+                      {params.s.length > 2  ? <h1>Search results for: '{params.s}'</h1> : <h1>Please search for more than 2 letters</h1>}
+                      {params.s.length > 2 ? locationGrid : null} 
                     </div>
                     <div className="rightSide">
                       <MapTrigger onClick={() => this.props.toggleMapActive()} color={currentStyles.accent}/>
                     </div>
                   </div>
-               </LocationPageMarkup>
+               </PageLayout>
 
       }
       return content;
@@ -74,17 +76,16 @@ class searchPage extends Component {
 }
 const mapStateToProps = state => {
   return {
-    loading: state.category.loading,
+    //loading: state.search.loading,
+    locations: state.locations.posts,
     postsLoading: state.locations.loading,
-    children: state.category.children,
     isMapActive: state.map.active
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onCategoryQuery: (client , slug , parent) => dispatch(actions.executeCategoryQuery(client , slug , parent)),
-    startCategoryQuery : () => dispatch(actions.startCategoryQuery()),
-    startSubcategoryQuery :() => dispatch(loopActions.startSubcategoryQuery()),
+    allLocationsQuery: (client, searchValue , allCats) => dispatch(loopActions.allPostsQuery(client,searchValue,allCats)),
+    startLocations : () => dispatch(loopActions.locationsStart()),
     toggleMapActive : () => dispatch(mapActions.toogleMapActive())
   }
 }

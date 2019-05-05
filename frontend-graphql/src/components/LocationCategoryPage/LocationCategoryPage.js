@@ -79,7 +79,7 @@ class LocationCategoryPage extends Component {
                     <div className="rightSide">
                       { subcategories ? (<CategoryMenu categories={subcategories.edges} parent={category} match={this.props.match}></CategoryMenu>) : null}
                       <MapTrigger onClick={() => this.props.toggleMapActive()} color={currentStyles.accent}/>
-                  </div>
+                    </div>
                   </div>
                </PageLayout>
 

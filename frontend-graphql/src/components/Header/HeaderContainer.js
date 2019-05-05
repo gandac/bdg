@@ -24,7 +24,10 @@ class Header extends Component {
     super(props);
     this.inputRef = React.createRef();
   }
-  componentDidMount() {
+  state = {
+    inputSearch : false
+  }
+  componentDidMount() { 
     this.props.getMenuElements(this.props.client);
   }
   componentWillUpdate(nextProps) {
@@ -32,20 +35,31 @@ class Header extends Component {
       this.clearTypeValue();
     }
   }
-    onSearchType = (event ) => {
-
-      if(event.key == 'Enter'){
-        
-        this.props.setSearchValue(event.target.value);
-        this.props.startCategoryQuery();
-
-        if( this.props.location.pathname == '/'){
-          this.props.onAllLocationsQuery(this.props.client , event.target.value , false);
-        }else{
-          this.props.onCategoryQuery(this.props.client , this.props.currentCatSlug , this.props.currentCatSlug , event.target.value );
+    onSearchType = (event) => {
+      
+      if(event.target.value){
+        this.setState({inputSearch: true});
+        if(event.key == 'Enter'){
+          
+          this.props.setSearchValue(event.target.value);
+          this.props.startCategoryQuery();
+          if(this.props.isSearchInCategory){
+            this.props.onCategoryQuery(this.props.client , this.props.currentCatSlug , this.props.currentCatSlug , event.target.value );
+          }else{
+            this.props.history.push({
+              pathname: '/search',
+              search: 's='+event.target.value
+             });
+          }
+         
         }
 
-      }
+        }else{
+          this.setState({inputSearch: false});
+        }
+   }
+   searchInCategoryChange = (event) => {
+      this.props.searchInCategory(event.target.checked);
    }
    clearTypeValue = () => {
      if(this.inputRef.current){
@@ -77,6 +91,10 @@ class Header extends Component {
               onType={(event) => this.onSearchType(event)} 
             //  onChange={(input)=>this.inputRef = input} 
               value={this.props.searchValue}
+              currentPathname = {this.props.location.pathname}
+              inputIsFocused = {this.state.inputSearch}
+              searchInCategory = {this.props.isSearchInCategory}
+              searchInCategoryChange={(event) => this.searchInCategoryChange(event)}
               ref={this.inputRef}
               />
               
@@ -93,15 +111,16 @@ const mapStateToProps = (state) => {
      menus: state.menus.headerMenu,
      mapActive : state.map.active,
      currentCatSlug: state.category.slug,
+     isSearchInCategory : state.search.searchInAllCategories,
      searchValue: state.search.searchValue,
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAllLocationsQuery: (client, searchValue , allCats) => dispatch(locationActions.allPostsQuery(client,searchValue,allCats)),
     getMenuElements: (client) => dispatch(actions.getMenu(client)),
     toggleMapInactive : (event) => dispatch(mapActions.toogleMapInactive(event)),
     startCategoryQuery : () => dispatch(startCategoryQuery()),
+    searchInCategory : (value) => dispatch(searchActions.setSearchInCategory(value)),
     setSearchValue: (value) => dispatch(searchActions.setSearchValue(value)),
     onCategoryQuery: (client , slug , parent,searchQuery) => dispatch(executeCategoryQuery(client , slug , parent , searchQuery)),
   }
