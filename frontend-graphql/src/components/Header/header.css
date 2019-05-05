@@ -35,6 +35,9 @@
     vertical-align: middle;
     display: inline-block;
 }
+.typeToSearch{
+    position: relative;
+}
 .typeToSearch svg{
     width: 1.4em;
     display: inline-block;
@@ -48,4 +51,19 @@
     padding-right: 0.2em;
     font-size:14px;
     outline: none;
+}
+.typeToSearch .searchInCategory {
+    display: block;
+    position: absolute;
+    top: 5em;
+    left: 3.2em;
+    width: 100%;
+    font-size: 10px;
+    margin: 0;
+    line-height: 1em;
+    padding: 0;
+    height: 1em;
+}
+.typeToSearch .searchInCategory label{
+    margin-left:0.5em;
 }

@@ -2,7 +2,8 @@
 let url = 'http://localhost:8080/graphql';
 
 // If we're running on Docker, use the WordPress container hostname instead of localhost.
-if (process.env.HOME === '/home/node') {
+console.log('process' , process.env);
+if (process.env.HOME === '/home/node/app') {
   url = 'http://wp-headless:8080/graphql';
 }
 //console.log('node enviroment: ' , process.env);

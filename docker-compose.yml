@@ -41,8 +41,8 @@ services:
         working_dir: /home/node/app
     frontend-graphql:
         environment:
-            - NODE_ENV=production
-            - REACT_APP_ENV=production
+        - NODE_ENV=production
+        - REACT_APP_ENV=production
         command: bash -c 'yarn && yarn start'
         container_name: frontend-graphql
         expose:
