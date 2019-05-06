@@ -54,8 +54,8 @@ class Homepage extends Component {
                           /> : null}   
                           {this.props.newLocations ? 
                             ! this.props.isSearch ? 
-                              <NewLocationsSlider locations={this.props.newLocations} colors={currentStyles} description={this.props.staticInfo.text1}/> : 
-                              <NewLocationsSlider locations={this.props.locations} type='search' searchWord={this.props.searchValue} colors={currentStyles} description={this.props.staticInfo.text1}/>
+                              <NewLocationsSlider locations={this.props.newLocations} colors={currentStyles} description={this.props.staticInfo ? this.props.staticInfo.text1 : null}/> : 
+                              <NewLocationsSlider locations={this.props.locations} type='search' searchWord={this.props.searchValue} colors={currentStyles} description={this.props.staticInfo ? this.props.staticInfo.text1 : null}/>
                           : null}
                           <GoToInsiders color={currentStyles.primary} info={this.props.staticInfo} />
                     </div>

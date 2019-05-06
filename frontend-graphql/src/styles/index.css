@@ -195,3 +195,7 @@ img{
   width:66%;
   display:inline-block;
 }
+
+.theMainWrapper{
+  position:relative;
+}

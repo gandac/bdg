@@ -242,7 +242,7 @@ class CustomGoogleMap extends Component {
               fullscreenControl: false
             }}
             
-            options={{styles:styleType}}
+            options={{styles:styleType,mapTypeControl:false}}
             ref={(map) => map && 
                           this.state.mapMoving &&
                            map.panTo(this.state.mapCenter.lat ? this.state.mapCenter : initialCenter )}
@@ -275,9 +275,9 @@ class CustomGoogleMap extends Component {
 export default  compose(
     withProps({
       googleMapURL:"https://maps.googleapis.com/maps/api/js?key=AIzaSyA4t4Y6MKt1YYJH0-hMRki5xDaj70g1n1E",
-      loadingElement: <div style={{ height: `100vh` ,width:"100%"}} />,
-      containerElement: <div style={{ height: `100vh`,width:"100%" }} />,
-      mapElement: <div style={{ height: `100vh` ,width:"100%"}} />,
+      loadingElement: <div style={{ height: `100%` ,width:"100%"}} />,
+      containerElement: <div style={{ height: `100%`,width:"100%" }} />,
+      mapElement: <div style={{ height: `100%` ,width:"100%"}} />,
     }),
     withScriptjs,
     withRouter,

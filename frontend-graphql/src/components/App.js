@@ -14,7 +14,7 @@ import LocationCategoryPage from './LocationCategoryPage/LocationCategoryPage';
 import MapContainer from './Map/MapContainer';
 
 export default () => (
-  <div className="center">
+  <div className="center theMainWrapper">
     <Header />
     <div className="mainPageWrapper">
       <Switch>
@@ -28,9 +28,8 @@ export default () => (
         <Route exact path="/location_category/:parent/:slug?" component={LocationCategoryPage} />
       </Switch>
     </div>
-    <div>
-       <MapContainer /> 
-    </div>
+
+    <MapContainer /> 
     
     <Footer />
   </div>
