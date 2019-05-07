@@ -199,3 +199,16 @@ img{
 .theMainWrapper{
   position:relative;
 }
+.but{
+  background: #fff;
+  padding: 1em;
+  font-weight: 300;
+  display: inline-block;
+  color: inherit;
+  cursor:pointer;
+  transition: all .4s ease;
+}
+.but:hover{
+  text-decoration: none;
+  box-shadow: 0px 3px 12px -8px rgba(0,0,0,0.5);
+}

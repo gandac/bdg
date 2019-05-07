@@ -129,12 +129,13 @@ export default withPagination;
 
 
 export const Pagination = (props) => {
-    const paginationNext = props.displayInfo.next ? <a className="paginationButton paginationNext" onClick={() =>  props.nextPage()} >Next page</a>:null;
-    const paginationPrev = props.displayInfo.prev ? <a className=" paginationPrev" onClick={() =>  props.prevPage()} >Prev page</a>:null;
+    const paginationNext = props.displayInfo.next ? <a className="but paginationButton paginationNext" onClick={() =>  props.nextPage()} >Next page</a>:null;
+    const paginationPrev = props.displayInfo.prev ? <a className="but paginationButton paginationPrev" onClick={() =>  props.prevPage()} >Prev page</a>:null;
     return (
         <div className="paginationButtons">
+         {paginationPrev ? paginationPrev : null} 
             {paginationNext ? paginationNext : null}
-            {paginationPrev ? paginationPrev : null} 
+           
         </div>
     )
 }

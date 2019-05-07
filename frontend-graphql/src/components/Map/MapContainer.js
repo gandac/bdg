@@ -49,7 +49,7 @@ class MapContainer extends Component {
                 onMapLoad = {this.props.onMapLoad}
                 markers = { markers ? markers : null} 
               />
-              {isCategoryPage ? <div className="mapShowAllWrapper constraint"><Link className="mapShowAll" to="/" style={{color:currentStyles.primary}}><strong>— Show all</strong></Link></div> : null}
+              {isCategoryPage ? <div className="mapShowAllWrapper constraint"><Link className="but mapShowAll" to="/" style={{color:currentStyles.primary}}><strong>— Show all</strong></Link></div> : null}
           </div>
         )
       }

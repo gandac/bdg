@@ -43,7 +43,12 @@
     display: inline-block;
     width: 95px;
     cursor: pointer;
-    
+    -webkit-filter: drop-shadow( -1px -1px 3px rgba(0, 0, 0, 0));
+    filter: drop-shadow( -1px -1px 3px rgba(0, 0, 0, 0));
+}
+.MapTriggerImage:hover svg{
+    -webkit-filter: drop-shadow( 0px 0px 3px rgba(0, 0, 0, .1));
+    filter: drop-shadow( 0px 0px 3px rgba(0, 0, 0, .1));
 }
 .locationBoxWrapper{
     width:50%;
@@ -85,4 +90,16 @@
 }
 .categoryLink.active{
     font-weight:600;
+}
+.paginationButtons{
+    text-align: center;
+    clear: both;
+    padding: 10px 0;
+}
+.but.paginationButton{
+    display:inline-block;
+    font-weight: 400;
+    margin:0 0.5em;
+    padding:1em 2em;
+    transition: all .3s ease;
 }
