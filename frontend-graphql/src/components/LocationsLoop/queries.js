@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 export const ALL_LOCATIONS_QUERY = gql`
   query AllPostsQuery($searchQuery: String,$slug: String, $first:Int, $last:Int , $before:String , $after:String) {
   
-    location( first: $first , last:$last ,  after:$after ,before:$before  ,where: {
+    location( first: $first , last:$last ,after:$after , before:$before  ,where: {
         search: $searchQuery,
         name: $slug
         } ){

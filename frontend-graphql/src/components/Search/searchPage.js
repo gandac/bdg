@@ -3,6 +3,7 @@ import { withApollo } from 'react-apollo';
 import {compose} from 'recompose';
 import {connect} from 'react-redux';
 import queryString from 'query-string';
+import withPagination,{Pagination} from '../../hoc/withPagination';
 import withColor from '../../hoc/withColor';
 import Preloader from '../ui/svg/preloader';
 import * as mapActions from '../Map/mapActions';
@@ -21,7 +22,7 @@ class searchPage extends Component {
   //  console.log(this.props.location.search);
     let params = queryString.parse(this.props.location.search);
     this.props.startLocations();
-    this.props.allLocationsQuery(this.props.client , params.s , false);
+    this.props.allLocationsQuery(this.props.client , params.s , false , this.props.initialPagination);
     // this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug);
   }
 
@@ -34,7 +35,7 @@ class searchPage extends Component {
  componentDidUpdate(prevProps){
   if ( this.props.location.search !== prevProps.location.search){
     let params = queryString.parse(this.props.location.search)
-    this.props.allLocationsQuery(this.props.client , params.s , false);
+    this.props.allLocationsQuery(this.props.client , params.s , false , this.props.initialPagination);
   }
  }
   render() {
@@ -62,6 +63,7 @@ class searchPage extends Component {
                     
                       {params.s.length > 2  ? <h1>Search results for: '{params.s}'</h1> : <h1>Please search for more than 2 letters</h1>}
                       {params.s.length > 2 ? locationGrid : null} 
+                      {this.props.paginationInfo.any ? <Pagination displayInfo={this.props.paginationInfo} nextPage={() => this.props.paginate(1)} prevPage={() => this.props.paginate(-1)} /> : null}
                     </div>
                     <div className="rightSide">
                       <MapTrigger onClick={() => this.props.toggleMapActive()} color={currentStyles.accent}/>
@@ -84,9 +86,9 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    allLocationsQuery: (client, searchValue , allCats) => dispatch(loopActions.allPostsQuery(client,searchValue,allCats)),
+    allLocationsQuery: (client, searchValue , allCats , pagination) => dispatch(loopActions.allPostsQuery(client,searchValue,allCats , pagination)),
     startLocations : () => dispatch(loopActions.locationsStart()),
     toggleMapActive : () => dispatch(mapActions.toogleMapActive())
   }
 }
-export default compose(connect(mapStateToProps, mapDispatchToProps) , withApollo, withColor )(searchPage);
+export default compose(connect(mapStateToProps, mapDispatchToProps) , withApollo, withColor , withPagination)(searchPage);

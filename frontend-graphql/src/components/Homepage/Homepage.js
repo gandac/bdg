@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { withApollo } from 'react-apollo';
 import {compose} from 'recompose';
 import {connect} from 'react-redux';
-
+import withPagination,{pagination} from '../../hoc/withPagination';
 import Preloader from '../ui/svg/preloader';
 import * as mapActions from '../Map/mapActions';
 import MapTrigger from  '../ui/mapTrigger';
-import {allPostsQuery, startSubcategoryQuery, newLocationsQuery,locationsStart} from '../LocationsLoop/locationsActions';
+import {allPostsQuery as allLocationsQuery, startSubcategoryQuery, newLocationsQuery,locationsStart} from '../LocationsLoop/locationsActions';
 import {allEventsQuery} from '../EventsLoop/eventsActions';
 //import CategoryMenu from '../ui/categoryMenu';
 import {startCategoryQuery} from '../LocationCategoryPage/categoryActions';
@@ -27,7 +27,7 @@ class Homepage extends Component {
     //this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug);
     this.props.locationsStart();
     this.props.startCategoryQuery();
-    this.props.onAllPropsQuery(this.props.client );
+    this.props.getAllLocations(this.props.client , '' ,false, this.props.initialPagination );
     this.props.getAllEvents(this.props.client);
     this.props.getNewLocations(this.props.client);
   } 
@@ -88,11 +88,11 @@ const mapDispatchToProps = dispatch => {
   return {
     toggleMapActive : () => dispatch(mapActions.toogleMapActive()),
     resetSearchInput: () => dispatch(setSearchValue('')), 
-    onAllPropsQuery: (client) => dispatch(allPostsQuery(client)),
+    getAllLocations: (client , search , isSingle, pagination) => dispatch(allLocationsQuery(client , search , isSingle , pagination )),
     getAllEvents: (client) => dispatch(allEventsQuery(client)),
     getNewLocations : (client) => dispatch(newLocationsQuery(client)),
      locationsStart: () => dispatch(locationsStart()),   
      startCategoryQuery : () => dispatch(startCategoryQuery()),
   }
 }
-export default compose(connect(mapStateToProps, mapDispatchToProps) , withApollo , withColor )(Homepage);
+export default compose(connect(mapStateToProps, mapDispatchToProps) , withApollo , withColor , withPagination )(Homepage);

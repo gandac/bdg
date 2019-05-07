@@ -212,3 +212,7 @@ img{
   text-decoration: none;
   box-shadow: 0px 3px 12px -8px rgba(0,0,0,0.5);
 }
+
+.textPage h1{
+  padding-top:3.5em;
+}

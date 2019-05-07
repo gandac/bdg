@@ -32,7 +32,7 @@ const modifyStateAllPosts = (result , type,pageType) => {
 }
 
 
-export const allPostsQuery = (client , searchQuery = '' ,  singleLocation = false ) =>{
+export const allPostsQuery = (client , searchQuery = '' ,  singleLocation = false , pagination = {}) =>{
 
     let theSearchQuery = searchQuery;
     let currentQuery = ALL_LOCATIONS_QUERY;
@@ -44,13 +44,21 @@ export const allPostsQuery = (client , searchQuery = '' ,  singleLocation = fals
          slug = searchQuery;
          pageType = ['singleLocation']
      }
+     let {first, last, before , after } = pagination;
     
       return async dispatch => {
           try{
           const result = await client.query({
               query: currentQuery,
               first: 10,
-              variables: { searchQuery: theSearchQuery , slug: slug},
+              variables: { 
+                            searchQuery: theSearchQuery , 
+                            slug: slug ,
+                            first:first,
+                            last:last,
+                            before:before,
+                            after:after,
+                        },
           });
             dispatch(modifyStateAllPosts(result,actionTypes.GET_ALL_LOCATIONS,pageType));
             return;

@@ -37,7 +37,7 @@ class Page extends Component {
       }else{
       
         content = <PageLayout currentStyles ={currentStyles} >
-                  <div className="constraint clearOverflow">
+                  <div className="constraint clearOverflow textPage">
                     <div className="leftSide">
                     <div className="pa2">
                         <h1>{page.title}</h1>

@@ -19,6 +19,8 @@ function withPagination(InputComponent) {
         return { 
             paginateOnCategory: (client , slug , parent, search , pagination) => dispatch(catActions.executeCategoryQuery(client , slug , parent , search , pagination)),
             startCategoryQuery : () => dispatch(catActions.startCategoryQuery()),
+            startLocations: ()=> dispatch(locationsActions.locationsStart()),
+            allLocationsQuery : (client , search , isSingle , pagination ) => dispatch(locationsActions.allPostsQuery(client , search , isSingle , pagination))
         }
     }
    
@@ -92,16 +94,17 @@ function withPagination(InputComponent) {
             if( this.props.currentPageType.includes('category') ){
                 this.props.startCategoryQuery();
                 this.props.paginateOnCategory(this.props.client , this.props.match.params.parent ,this.props.match.params.slug , ''  , paginationNext);
-                this.setState({     lastDirection: 'next'  });
             }else if( this.props.currentPageType.includes('searchPage') ){
                 const params = queryString.parse(this.props.location.search);
-                const search = params.s;
-            }else{
-                   
+                this.props.startLocations();
+                this.props.allLocationsQuery(this.props.client , params.s , false , paginationNext );
+            }else{ // all locations altogether
+                this.props.startLocations();
             }
+            this.setState({     lastDirection: 'next'  });
         }
         prevPageType(){
-            this.setState({ lastDirection : 'prev' });
+            
             let paginationPrev = {
                 last: this.state.paginationLimit ,
                 before: this.props.paginationInfo.startCursor
@@ -112,15 +115,21 @@ function withPagination(InputComponent) {
                 this.props.paginateOnCategory(this.props.client , this.props.match.params.parent ,this.props.match.params.slug , ''  , paginationPrev);
             }else if( this.props.currentPageType.includes('searchPage') ){
                 const params = queryString.parse(this.props.location.search);
-                const search = params.s;
+                this.props.startLocations();
+                this.props.allLocationsQuery(this.props.client , params.s , false , paginationPrev );
             }else{
-                   
+                this.props.startLocations();
+                this.props.allLocationsQuery(this.props.client , '', false , paginationPrev ); 
             }
+            this.setState({ lastDirection : 'prev' });
         }
         
        render(){
-           
-           return <InputComponent {...this.props} paginate={this.paginate} paginationInfo={this.state.paginationInfo}/>
+        const initialPagination = {
+            first : this.state.paginationLimit,
+            after : null,
+          }
+           return <InputComponent {...this.props} paginate={this.paginate} paginationInfo={this.state.paginationInfo} initialPagination={initialPagination}/>
        }
     })
 }

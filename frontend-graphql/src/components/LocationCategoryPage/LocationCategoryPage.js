@@ -19,14 +19,9 @@ import {setSearchValue} from '../Search/searchActions';
  */
 class LocationCategoryPage extends Component {
   componentDidMount() {
-
-    const initialPagination = {
-      first : 1,
-      after : null,
-    }
     this.props.startCategoryQuery();
-    console.log('here' , initialPagination);
-    this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug , '' , initialPagination );
+    
+    this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug , '' , this.props.initialPagination );
   }
 
   // shouldComponentUpdate(prevProps){
@@ -50,7 +45,7 @@ class LocationCategoryPage extends Component {
  
  componentDidUpdate(prevProps){
   if ( prevProps.match.params.parent !== this.props.match.params.parent ||  prevProps.match.params.slug !== this.props.match.params.slug){
-    this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug);
+    this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug , '' , this.props.initialPagination);
   }
   if ( this.props.match.params.slug !== prevProps.match.params.slug ){
     //this.setState({...this.state,productLoading: false});
