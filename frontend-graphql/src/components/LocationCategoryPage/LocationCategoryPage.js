@@ -10,6 +10,7 @@ import * as actions from './categoryActions';
 import * as loopActions from '../LocationsLoop/locationsActions';
 import CategoryMenu from '../ui/categoryMenu';
 import LocationsGrid from './locationsGrid';
+import withPagination,{Pagination} from '../../hoc/withPagination';
 import PageLayout from '../ui/pageLayout';
 import {setSearchValue} from '../Search/searchActions';
 
@@ -17,10 +18,15 @@ import {setSearchValue} from '../Search/searchActions';
  * Fetch and display a Category
  */
 class LocationCategoryPage extends Component {
-
   componentDidMount() {
+
+    const initialPagination = {
+      first : 1,
+      after : null,
+    }
     this.props.startCategoryQuery();
-    this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug);
+    console.log('here' , initialPagination);
+    this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug , '' , initialPagination );
   }
 
   // shouldComponentUpdate(prevProps){
@@ -75,6 +81,7 @@ class LocationCategoryPage extends Component {
                   <div className="constraint clearOverflow">
                     <div className="leftSide">
                       {locationGrid} 
+                      {this.props.paginationInfo.any ? <Pagination displayInfo={this.props.paginationInfo} nextPage={() => this.props.paginate(1)} prevPage={() => this.props.paginate(-1)} /> : null}
                     </div>
                     <div className="rightSide">
                       { subcategories ? (<CategoryMenu categories={subcategories.edges} parent={category} match={this.props.match}></CategoryMenu>) : null}
@@ -82,6 +89,7 @@ class LocationCategoryPage extends Component {
                     </div>
                   </div>
                </PageLayout>
+
 
       }
       return content;
@@ -99,6 +107,7 @@ const mapStateToProps = state => {
       // posts.loading : state.category.postsLoading
     },
     loading: state.category.loading,
+
     postsLoading: state.locations.loading,
     children: state.category.children,
     isMapActive: state.map.active
@@ -106,7 +115,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onCategoryQuery: (client , slug , parent) => dispatch(actions.executeCategoryQuery(client , slug , parent)),
+    onCategoryQuery: (client , slug , parent,search , pagination) => dispatch(actions.executeCategoryQuery(client , slug , parent , search , pagination)),
     startCategoryQuery : () => dispatch(actions.startCategoryQuery()),
     startSubcategoryQuery :() => dispatch(loopActions.startSubcategoryQuery()),
     toggleMapActive : () => dispatch(mapActions.toogleMapActive()),
@@ -114,4 +123,4 @@ const mapDispatchToProps = dispatch => {
     resetCategory : () => dispatch(actions.resetCategory()),
   }
 }
-export default compose(connect(mapStateToProps, mapDispatchToProps) , withApollo, withColor )(LocationCategoryPage);
+export default compose(connect(mapStateToProps, mapDispatchToProps) , withApollo, withColor , withPagination )(LocationCategoryPage);

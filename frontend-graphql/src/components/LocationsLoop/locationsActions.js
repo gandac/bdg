@@ -15,6 +15,7 @@ export const startSubcategoryQuery = () => {
 
 const modifyStateAllPosts = (result , type,pageType) => {
     let posts = result.data.location.edges;
+    let pageInfo = result.data.location.pageInfo;
     posts = posts.map(post => {
         const finalLink = `/location/${post.node.slug}`;
         const modifiedPost = { ...post };
@@ -25,6 +26,7 @@ const modifyStateAllPosts = (result , type,pageType) => {
     return {
         type: type,
         pageType: pageType,
+        pageInfo: pageInfo,
         posts: posts
     }
 }
@@ -36,9 +38,8 @@ export const allPostsQuery = (client , searchQuery = '' ,  singleLocation = fals
     let currentQuery = ALL_LOCATIONS_QUERY;
      let pageType = theSearchQuery.length > 0 ? ['searchPage'] : ['homepage'];
      let slug = '';
-     console.log('aici');
+
      if(singleLocation){
-         console.log('here');
          theSearchQuery = '';
          slug = searchQuery;
          pageType = ['singleLocation']
@@ -48,6 +49,7 @@ export const allPostsQuery = (client , searchQuery = '' ,  singleLocation = fals
           try{
           const result = await client.query({
               query: currentQuery,
+              first: 10,
               variables: { searchQuery: theSearchQuery , slug: slug},
           });
             dispatch(modifyStateAllPosts(result,actionTypes.GET_ALL_LOCATIONS,pageType));
@@ -57,6 +59,7 @@ export const allPostsQuery = (client , searchQuery = '' ,  singleLocation = fals
           }
       }
   }
+
   
   export const newLocationsQuery = (client ) =>{
     const now = new Date();

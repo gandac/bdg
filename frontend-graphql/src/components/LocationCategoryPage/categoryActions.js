@@ -15,6 +15,7 @@ export const startCategoryQuery = () => {
 export const modifyStateCategoryQuery = (result) => {
     const mainCategory = result.data.location_categories.edges[0].node;
     let posts = result.data.location.edges;
+    let pageInfo = result.data.location.pageInfo;
     // assoc_categories = result.data.location.edges.reduce(cat => {
 
     // });
@@ -29,43 +30,41 @@ export const modifyStateCategoryQuery = (result) => {
     return {
         type: actionTypes.SET_CATEGORY,
         ...mainCategory,
-        posts: posts
+        posts: posts,
+        pageInfo: pageInfo
     }
 
 }
 
-export const executeCategoryQuery = (client , parent , slug = false , searchQuery = '' , allCategories = false ) =>{
+export const executeCategoryQuery = (client , parent , slug = false , searchQuery = '' , pagination = {} ) =>{
 
   let filter = parent;
   let catFilter = parent;
   let theSearchQuery = searchQuery;
+  let {first, last, before , after } = pagination;
  if(slug){
   filter = slug
  }
  const currentQuery = CATEGORY_QUERY;
- if(allCategories === true){
-//   currentQuery = ALL_CATEGORIES_QUERY;
- }
 
-    /**
- * GraphQL category query that takes a category slug as a filter
- * Returns the posts belonging to the category and the category name and ID
- */
-
-   
     return async dispatch => {
         try{
         const result = await client.query({
             query: currentQuery,
-            variables: { filter: filter , catFilter: catFilter,searchQuery: theSearchQuery},
+            variables: { filter: filter , 
+                        catFilter: catFilter,
+                        searchQuery: theSearchQuery,
+                        first:first,
+                        last:last,
+                        before:before,
+                        after:after,
+                    },
         });
           dispatch(modifyStateCategoryQuery(result));
-          //dispatch(colorActions.setColors(result.data.location_categories.edges[0].node.thecolor));
+          
          return;
         }catch(err){
            console.log(err);
         }
     }
 }
-
-  

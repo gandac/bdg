@@ -44,7 +44,7 @@ fragment alocation on Locations{
 } 
   `;
   export const CATEGORY_QUERY = gql`
-  query CategoryQuery($filter: String , $catFilter: String!,$searchQuery: String!) {
+  query CategoryQuery($filter: String , $catFilter: String!,$searchQuery: String,$first: Int,$last: Int, $after: String, $before: String) {
   
       location_categories(where: { slug: [$catFilter] , shouldOnlyIncludeConnectedItems: false , shouldOutputInFlatList: false}){
       edges{
@@ -68,7 +68,7 @@ fragment alocation on Locations{
       }
     }
   
-    location( where: {
+    location( first: $first , last: $last , before: $before, after: $after , where: {
         search: $searchQuery,
         taxQuery: {
           relation: AND,
@@ -86,7 +86,14 @@ fragment alocation on Locations{
             }
           ]
         }} ){
+        pageInfo {
+          startCursor
+          endCursor
+          hasNextPage
+          hasPreviousPage
+        }
       edges {
+        cursor
         node {
           title
           slug
@@ -107,6 +114,7 @@ fragment alocation on Locations{
             }
           }
           location_categories {
+
             edges {
               node {
                 location_categoryId

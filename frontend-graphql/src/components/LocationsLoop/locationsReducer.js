@@ -3,6 +3,7 @@ import * as actionTypes from '../../store/actionTypes';
  const initialState = {
     posts: [],
     pageType: [],
+    pageInfo: {},
     newPosts: [],
     loading: true
  }
@@ -13,6 +14,7 @@ import * as actionTypes from '../../store/actionTypes';
                 ...state,
                 posts: [ ...action.posts],
                 pageType: ['category'],
+                pageInfo: action.pageInfo,
                 loading: false
             }
         case actionTypes.SUBCATEGORY_START:
@@ -31,6 +33,7 @@ import * as actionTypes from '../../store/actionTypes';
                 ...state,
                 posts: [...action.posts],
                 pageType: action.pageType,
+                pageInfo: action.pageInfo,
                 loading: false
             }
         case actionTypes.GET_NEW_LOCATIONS:
