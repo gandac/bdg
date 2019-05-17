@@ -70,8 +70,12 @@ export const ALL_LOCATIONS_QUERY = gql`
   query AllPostsQuery($year: Int!,$month: Int!,$day: Int!) {
   
     location( first: 6, after: null ,where: {
+      orderby:{
+        field: DATE,
+        order: DESC
+      }
       dateQuery: {
-        before: {
+        after: {
           year: $year,
           month: $month,
           day: $day

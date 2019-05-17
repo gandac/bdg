@@ -77,7 +77,7 @@ export const allPostsQuery = (client , searchQuery = '' ,  singleLocation = fals
           try{
           const result = await client.query({
               query: currentQuery,
-              variables: { year: now.getFullYear() , month: now.getMonth() + 1 , day: now.getDate()},
+              variables: { year: now.getFullYear() , month: now.getMonth() - 1 , day: now.getDate()},
           });
             dispatch(modifyStateAllPosts(result , actionTypes.GET_NEW_LOCATIONS));
             return;
