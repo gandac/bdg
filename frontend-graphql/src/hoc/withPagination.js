@@ -68,7 +68,6 @@ function withPagination(InputComponent) {
             }else if(nextProps.paginationInfo !== this.props.paginationInfo ){
 
                 if( nextProps.paginationInfo){
-                    console.log('does update' , nextState.lastDirection , nextProps.paginationInfo)
                     if(nextState.lastDirection == 'none' ){
                         this.setState({
                             paginationInfo : {

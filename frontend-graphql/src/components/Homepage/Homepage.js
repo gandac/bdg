@@ -27,7 +27,7 @@ class Homepage extends Component {
     //this.props.onCategoryQuery(this.props.client , this.props.match.params.parent ,this.props.match.params.slug);
     this.props.locationsStart();
     this.props.startCategoryQuery();
-    this.props.getAllLocations(this.props.client , '' ,false, this.props.initialPagination );
+    this.props.getAllLocations(this.props.client , '' ,false );
     this.props.getAllEvents(this.props.client);
     this.props.getNewLocations(this.props.client);
   } 
