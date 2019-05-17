@@ -36,7 +36,7 @@ function withPagination(InputComponent) {
                 any : false,
             },
              lastDirection : 'none',
-             paginationLimit: 1,
+             paginationLimit: 4,
         }
         componentWillMount(){
            
