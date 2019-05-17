@@ -4,6 +4,7 @@ import queryString from 'query-string';
 import {connect} from 'react-redux';
 import * as catActions from '../components/LocationCategoryPage/categoryActions';
 import * as locationsActions from '../components/LocationsLoop/locationsActions';
+import {withRouter} from 'react-router-dom';
 import { withApollo } from 'react-apollo';
 
 function withPagination(InputComponent) {
@@ -23,11 +24,23 @@ function withPagination(InputComponent) {
             allLocationsQuery : (client , search , isSingle , pagination ) => dispatch(locationsActions.allPostsQuery(client , search , isSingle , pagination))
         }
     }
-   
-    return compose(connect( mapStateToProps,mapDispatchToProps),withApollo) (class extends Component {
+    
+    return compose(connect( mapStateToProps,mapDispatchToProps),withApollo , withRouter) (class extends Component {
         constructor(props){
             super(props);
-            this.paginate = this.paginate.bind(this)
+            this.paginate = this.paginate.bind(this);
+            this.globalInitialState = {
+                paginationInfo : {
+                    next : false,
+                    prev  : false, 
+                    any : false,
+                },
+                 lastDirection : 'none',
+                 paginationLimit: 4,
+            }
+        }
+        resetPaginationRules () {
+            this.setState(this.globalInitialState);
         }
         state = {
             paginationInfo : {
@@ -38,6 +51,9 @@ function withPagination(InputComponent) {
              lastDirection : 'none',
              paginationLimit: 4,
         }
+        componentDidMount(){
+            this.setState(this.globalInitialState);
+        }
         componentWillMount(){
            
             this.setState({
@@ -47,8 +63,10 @@ function withPagination(InputComponent) {
             });
         }
         componentWillUpdate(nextProps , nextState){
-           
-            if(nextProps.paginationInfo !== this.props.paginationInfo ){
+            if(nextProps.location.pathname !== this.props.location.pathname ){
+                this.setState(this.globalInitialState);
+            }else if(nextProps.paginationInfo !== this.props.paginationInfo ){
+
                 if( nextProps.paginationInfo){
                     console.log('does update' , nextState.lastDirection , nextProps.paginationInfo)
                     if(nextState.lastDirection == 'none' ){
